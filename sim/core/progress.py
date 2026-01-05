@@ -77,8 +77,8 @@ class SimpleProgress:
         """Print progress bar to stderr."""
         elapsed = time.time() - self.start_time
 
-        # Calculate ETA
-        if self.current > 0:
+        # Calculate ETA (guard against zero elapsed time on fast systems)
+        if self.current > 0 and elapsed > 0:
             rate = self.current / elapsed
             eta = (self.total - self.current) / rate
             eta_str = self._format_time(eta)
@@ -193,7 +193,8 @@ class ProgressTracker:
         """Get current progress information."""
         elapsed = time.time() - self.start_time
 
-        if self.current > 0:
+        # Guard against zero elapsed time on fast systems (Windows)
+        if self.current > 0 and elapsed > 0:
             rate = self.current / elapsed
             eta = (self.total - self.current) / rate
         else:
