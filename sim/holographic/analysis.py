@@ -7,7 +7,7 @@ and its relation to the fine structure constant α.
 """
 
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Optional
 
 import numpy as np
 

@@ -87,7 +87,7 @@ class UniverseSimulator:
                     universe["final_coherence"] = K[-1]
                     universe["coherence_growth"] = K[-1] / K[0]
                     universe["total_realized"] = Total[-1]
-                except:
+                except Exception:
                     universe["final_coherence"] = 1.0
                     universe["coherence_growth"] = 1.0
                     universe["total_realized"] = 1.0

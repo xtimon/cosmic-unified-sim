@@ -7,7 +7,7 @@ Energy-conserving integrators for N-body simulations.
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Callable, List, Optional, Tuple
+from typing import Callable, List, Optional
 
 import numpy as np
 

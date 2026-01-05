@@ -199,7 +199,7 @@ class LeptogenesisModel:
                 try:
                     result = self.solve_leptogenesis()
                     results[i, j] = result["eta_B"]
-                except:
+                except Exception:
                     results[i, j] = 0.0
 
         # Restore original values

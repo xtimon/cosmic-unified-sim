@@ -5,7 +5,7 @@ Celestial Body
 Class for representing celestial bodies in N-body simulations.
 """
 
-from typing import List, Optional
+from typing import List
 
 import numpy as np
 

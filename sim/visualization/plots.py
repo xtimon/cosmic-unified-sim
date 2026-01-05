@@ -6,7 +6,7 @@ Plotting functions for all simulation types.
 """
 
 import warnings
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, List, Optional, Tuple
 
 import numpy as np
 
@@ -54,7 +54,7 @@ class SimulationVisualizer:
         """Apply plotting style."""
         try:
             plt.style.use(self.style)
-        except:
+        except Exception:
             pass
 
     def plot_nbody_3d(

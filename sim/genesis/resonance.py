@@ -6,7 +6,7 @@ Post-inflation reheating via parametric resonance.
 Based on Mathieu equation instability.
 """
 
-from typing import Dict, Optional, Tuple
+from typing import Dict, Tuple
 
 import numpy as np
 from scipy.integrate import solve_ivp

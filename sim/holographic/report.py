@@ -5,9 +5,7 @@ Universe Formula Report
 Generate reports on holographic analysis results.
 """
 
-from typing import Dict, Optional
-
-import numpy as np
+from typing import Dict
 
 from .analysis import COSMOLOGICAL_MODELS, HolographicAnalysis
 
@@ -77,14 +75,14 @@ Holographic Information:
         return f"""
 ABSTRACT
 --------
-We analyze the holographic information ratio k = E_info/E_total 
-across multiple cosmological datasets and find an empirical 
+We analyze the holographic information ratio k = E_info/E_total
+across multiple cosmological datasets and find an empirical
 relation k ≈ 66α, where α is the fine structure constant.
 
 INTRODUCTION
 ------------
-The holographic principle suggests that information in a region 
-scales with surface area rather than volume. We investigate whether 
+The holographic principle suggests that information in a region
+scales with surface area rather than volume. We investigate whether
 the information ratio k is related to fundamental constants.
 
 METHODS
@@ -105,8 +103,8 @@ k/α ratio: {self.results['all_models']['mean_k_over_alpha']:.2f}
 
 CONCLUSIONS
 -----------
-The empirical relation k ≈ 66α has an error of 
-{self.results['all_models']['mean_error_vs_66alpha']:.2f}% and 
+The empirical relation k ≈ 66α has an error of
+{self.results['all_models']['mean_error_vs_66alpha']:.2f}% and
 p-value of {self.results['significance']['p_value']:.3f}.
 """
 

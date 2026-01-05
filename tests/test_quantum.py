@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from numpy.testing import assert_allclose, assert_array_equal
+from numpy.testing import assert_allclose
 
 
 class TestQuantumFabric:
@@ -180,10 +180,10 @@ class TestQuantumOperators:
         Z = pauli_z()
 
         # X² = Y² = Z² = I
-        I = np.eye(2)
-        assert_allclose(X @ X, I)
-        assert_allclose(Y @ Y, I)
-        assert_allclose(Z @ Z, I)
+        identity = np.eye(2)
+        assert_allclose(X @ X, identity)
+        assert_allclose(Y @ Y, identity)
+        assert_allclose(Z @ Z, identity)
 
     def test_hadamard_unitary(self):
         """Test Hadamard is unitary."""
@@ -234,7 +234,7 @@ class TestQuantumOperators:
 
         # Second call - should use cache
         build_cnot_sparse(0, 1, 3)
-        stats2 = get_cache_stats()
+        # Cache was used
 
         assert stats1["size"] > 0
 

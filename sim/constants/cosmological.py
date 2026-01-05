@@ -338,7 +338,7 @@ Holographic Relations:
   1/α = {self.inverse_alpha:.4f}
   k = {self.k_observed:.6f}
   k/α = {self.k_over_alpha:.2f}
-  
+
 k Formulas Comparison:
   k (observed)    = {self.k_observed:.6f}
   k (holographic) = {self.k_formula_holographic():.6f} ({self.k_error_percent('holographic'):.1f}%)

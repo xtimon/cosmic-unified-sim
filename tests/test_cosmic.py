@@ -267,7 +267,7 @@ class TestIntegrators:
 
     def test_verlet_integrator(self):
         """Test Verlet integrator."""
-        from sim.cosmic.integrators import IntegratorState, VerletIntegrator
+        from sim.cosmic.integrators import VerletIntegrator
 
         integrator = VerletIntegrator()
         assert integrator.name == "verlet"
@@ -275,7 +275,7 @@ class TestIntegrators:
 
     def test_yoshida_integrator(self):
         """Test Yoshida integrator."""
-        from sim.cosmic.integrators import IntegratorState, Yoshida4Integrator
+        from sim.cosmic.integrators import Yoshida4Integrator
 
         integrator = Yoshida4Integrator()
         assert integrator.name == "yoshida4"

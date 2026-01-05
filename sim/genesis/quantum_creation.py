@@ -156,7 +156,7 @@ class QuantumCreation:
             try:
                 alpha, beta = self.bogoliubov_coefficients(k, t_span)
                 n_values[i] = np.abs(beta) ** 2
-            except:
+            except Exception:
                 n_values[i] = 0.0
 
         return {

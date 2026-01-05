@@ -155,7 +155,7 @@ def expand_single_qubit_gate(
         return sparse.csr_matrix(cached) if use_sparse else cached
 
     # Build operator using tensor products
-    I = sparse.eye(2, format="csr")
+    eye2 = sparse.eye(2, format="csr")
     G = sparse.csr_matrix(gate)
 
     result = sparse.eye(1, format="csr")
@@ -163,7 +163,7 @@ def expand_single_qubit_gate(
         if i == qubit_index:
             result = sparse.kron(G, result)
         else:
-            result = sparse.kron(I, result)
+            result = sparse.kron(eye2, result)
 
     # Cache and return
     if not use_sparse:
@@ -471,7 +471,6 @@ def partial_trace(rho: np.ndarray, dims: Tuple[int, ...], trace_out: int) -> np.
     n_subsystems = len(dims)
 
     # Reshape to tensor
-    total_dim = int(np.prod(dims))
     rho_tensor = rho.reshape(dims + dims)
 
     # Axes to trace

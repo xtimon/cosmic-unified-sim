@@ -1,6 +1,5 @@
 """Tests for core module (base, config, checkpoint, logging)."""
 
-import json
 import tempfile
 from pathlib import Path
 
@@ -77,7 +76,6 @@ class TestExceptions:
     def test_quantum_error(self):
         """Test QuantumError hierarchy."""
         from sim.core.exceptions import (
-            InvalidQuantumStateError,
             InvalidQubitIndexError,
             QuantumError,
         )
@@ -241,7 +239,8 @@ class TestCheckpoint:
 
             for i in range(5):
                 manager.save(state={"step": i}, name="test", simulation_type="test", step=i)
-                time.sleep(0.1)  # Ensure different timestamps
+                # Windows filesystem has ~15ms timestamp resolution, need longer sleep
+                time.sleep(0.2)
 
             deleted = manager.cleanup("test", keep_last=2)
 
@@ -259,7 +258,8 @@ class TestCheckpoint:
 
             for i in range(3):
                 manager.save(state={"value": i}, name="test", simulation_type="test", step=i)
-                time.sleep(0.1)
+                # Windows filesystem has ~15ms timestamp resolution, need longer sleep
+                time.sleep(0.2)
 
             latest = manager.load_latest("test")
             assert latest["state"]["value"] == 2
@@ -288,7 +288,7 @@ class TestLogging:
         """Test log level context manager."""
         import logging
 
-        from sim.core.logging import logger, silence, verbose
+        from sim.core.logging import logger, silence
 
         original_level = logger.level
 

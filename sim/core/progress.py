@@ -12,12 +12,12 @@ from typing import Callable, Iterator, Optional
 
 # Try to import tqdm
 try:
-    from tqdm import tqdm
     from tqdm.auto import tqdm as tqdm_auto
 
     TQDM_AVAILABLE = True
 except ImportError:
     TQDM_AVAILABLE = False
+    tqdm_auto = None
 
 from .logging import get_logger
 
@@ -76,7 +76,6 @@ class SimpleProgress:
     def _print_progress(self) -> None:
         """Print progress bar to stderr."""
         elapsed = time.time() - self.start_time
-        percent = self.current / self.total * 100 if self.total > 0 else 0
 
         # Calculate ETA
         if self.current > 0:
