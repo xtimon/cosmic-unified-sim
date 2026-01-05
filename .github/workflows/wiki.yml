@@ -1,0 +1,251 @@
+name: Update Wiki
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'sim/**'
+      - '.github/workflows/wiki.yml'
+  workflow_dispatch:
+
+jobs:
+  update-wiki:
+    name: Update GitHub Wiki
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[docs]"
+        pip install sphinx sphinx-rtd-theme
+
+    - name: Build documentation
+      run: |
+        cd docs
+        make html
+
+    - name: Convert RST to Markdown for Wiki
+      run: |
+        pip install rst-to-myst pandoc
+        mkdir -p wiki_output
+        
+        # Convert main pages
+        for file in docs/*.rst; do
+          if [ -f "$file" ]; then
+            filename=$(basename "$file" .rst)
+            pandoc "$file" -f rst -t gfm -o "wiki_output/${filename}.md" 2>/dev/null || true
+          fi
+        done
+        
+        # Convert API docs
+        mkdir -p wiki_output/api
+        for file in docs/api/*.rst; do
+          if [ -f "$file" ]; then
+            filename=$(basename "$file" .rst)
+            pandoc "$file" -f rst -t gfm -o "wiki_output/api/${filename}.md" 2>/dev/null || true
+          fi
+        done
+        
+        # Convert tutorials
+        mkdir -p wiki_output/tutorials
+        for file in docs/tutorials/*.rst; do
+          if [ -f "$file" ]; then
+            filename=$(basename "$file" .rst)
+            pandoc "$file" -f rst -t gfm -o "wiki_output/tutorials/${filename}.md" 2>/dev/null || true
+          fi
+        done
+
+    - name: Create Wiki Home page
+      run: |
+        cat > wiki_output/Home.md << 'EOF'
+        # Unified Cosmological Simulation Framework
+        
+        A comprehensive Python library for cosmological simulations combining:
+        - **Quantum mechanics** and emergence
+        - **N-body** celestial dynamics
+        - **Coherence** evolution
+        - **Matter genesis** in early universe
+        - **Holographic** information analysis
+        
+        ## Quick Links
+        
+        ### Getting Started
+        - [Installation](installation)
+        - [Quick Start Guide](quickstart)
+        
+        ### Tutorials
+        - [Quantum Basics](tutorials/quantum_basics)
+        - [N-Body Simulation](tutorials/nbody_simulation)
+        - [Coherence Evolution](tutorials/coherence_evolution)
+        - [Custom Integrators](tutorials/custom_integrators)
+        - [Visualization Guide](tutorials/visualization_guide)
+        - [GPU Acceleration](tutorials/gpu_acceleration)
+        
+        ### API Reference
+        - [Quantum Module](api/quantum)
+        - [Cosmic Module](api/cosmic)
+        - [Coherence Module](api/coherence)
+        - [Genesis Module](api/genesis)
+        - [Holographic Module](api/holographic)
+        - [Core Utilities](api/core)
+        
+        ### Development
+        - [Contributing](contributing)
+        - [Changelog](changelog)
+        
+        ## Installation
+        
+        ```bash
+        pip install cosmic-unified-sim
+        
+        # With GPU support
+        pip install cosmic-unified-sim[gpu-cuda]
+        ```
+        
+        ## Basic Example
+        
+        ```python
+        from sim import QuantumFabric, NBodySimulator, CoherenceModel
+        
+        # Quantum simulation
+        qf = QuantumFabric(num_qubits=3)
+        qf.apply_hadamard(0)
+        qf.apply_entanglement_operator([(0, 1), (1, 2)])
+        print(f"Entanglement entropy: {qf.get_entanglement_entropy():.4f}")
+        
+        # N-body simulation  
+        from sim.cosmic import SystemPresets
+        presets = SystemPresets()
+        bodies = presets.create_earth_moon_system()
+        sim = NBodySimulator(bodies)
+        times, states = sim.simulate(t_span=(0, 30*24*3600), n_points=1000)
+        ```
+        
+        ## Links
+        
+        - [PyPI Package](https://pypi.org/project/cosmic-unified-sim/)
+        - [GitHub Repository](https://github.com/xtimon/cosmic-unified-sim)
+        - [Full Documentation](https://cosmic-unified-sim.readthedocs.io/)
+        EOF
+
+    - name: Create Wiki Sidebar
+      run: |
+        cat > wiki_output/_Sidebar.md << 'EOF'
+        ## Navigation
+        
+        **[Home](Home)**
+        
+        ### Getting Started
+        - [Installation](installation)
+        - [Quick Start](quickstart)
+        
+        ### Tutorials
+        - [Quantum Basics](tutorials/quantum_basics)
+        - [N-Body Simulation](tutorials/nbody_simulation)
+        - [Coherence Evolution](tutorials/coherence_evolution)
+        - [Custom Integrators](tutorials/custom_integrators)
+        - [Visualization](tutorials/visualization_guide)
+        - [Multiverse Analysis](tutorials/multiverse_analysis)
+        - [GPU Acceleration](tutorials/gpu_acceleration)
+        - [Extending](tutorials/extending_framework)
+        - [Performance](tutorials/performance_optimization)
+        
+        ### API Reference
+        - [Quantum](api/quantum)
+        - [Cosmic](api/cosmic)
+        - [Coherence](api/coherence)
+        - [Genesis](api/genesis)
+        - [Holographic](api/holographic)
+        - [Core](api/core)
+        
+        ### Development
+        - [Contributing](contributing)
+        - [Changelog](changelog)
+        EOF
+
+    - name: Create Wiki Footer
+      run: |
+        cat > wiki_output/_Footer.md << 'EOF'
+        ---
+        **Unified Cosmological Simulation** | [GitHub](https://github.com/xtimon/cosmic-unified-sim) | [PyPI](https://pypi.org/project/cosmic-unified-sim/) | MIT License
+        EOF
+
+    - name: Checkout wiki repository
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ github.repository }}.wiki
+        path: wiki
+        token: ${{ secrets.GITHUB_TOKEN }}
+      continue-on-error: true
+
+    - name: Initialize wiki if needed
+      run: |
+        if [ ! -d "wiki/.git" ]; then
+          mkdir -p wiki
+          cd wiki
+          git init
+          git remote add origin https://github.com/${{ github.repository }}.wiki.git
+        fi
+
+    - name: Update wiki content
+      run: |
+        # Copy converted files to wiki
+        cp -r wiki_output/* wiki/ 2>/dev/null || true
+        
+        # Create subdirectories structure with flat naming for wiki
+        cd wiki
+        
+        # Flatten api directory
+        if [ -d "api" ]; then
+          for file in api/*.md; do
+            if [ -f "$file" ]; then
+              filename=$(basename "$file")
+              mv "$file" "api-${filename}" 2>/dev/null || true
+            fi
+          done
+          rm -rf api
+        fi
+        
+        # Flatten tutorials directory
+        if [ -d "tutorials" ]; then
+          for file in tutorials/*.md; do
+            if [ -f "$file" ]; then
+              filename=$(basename "$file")
+              mv "$file" "tutorials-${filename}" 2>/dev/null || true
+            fi
+          done
+          rm -rf tutorials
+        fi
+        
+        # Update links in all files to use flat structure
+        for file in *.md; do
+          if [ -f "$file" ]; then
+            sed -i 's|(api/|(api-|g' "$file"
+            sed -i 's|(tutorials/|(tutorials-|g' "$file"
+          fi
+        done
+
+    - name: Commit and push wiki changes
+      run: |
+        cd wiki
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add -A
+        git diff --staged --quiet || git commit -m "Update wiki from docs [skip ci]"
+        git push origin HEAD:master || git push origin HEAD:main || echo "Wiki push failed - wiki may not be enabled"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      continue-on-error: true
+
