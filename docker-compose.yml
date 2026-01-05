@@ -1,0 +1,92 @@
+version: "3.9"
+
+services:
+  # CPU-only simulation environment
+  sim:
+    build:
+      context: .
+      target: production
+    image: unified-sim:latest
+    container_name: unified-sim
+    volumes:
+      - ./output:/app/output
+      - ./checkpoints:/app/checkpoints
+    environment:
+      - SIM_LOG_LEVEL=INFO
+    command: ["sim", "info"]
+
+  # Development environment with Jupyter
+  dev:
+    build:
+      context: .
+      target: development
+    image: unified-sim:dev
+    container_name: unified-sim-dev
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
+      - ./output:/app/output
+      - ./checkpoints:/app/checkpoints
+    environment:
+      - SIM_LOG_LEVEL=DEBUG
+      - JUPYTER_ENABLE_LAB=yes
+    command: ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--NotebookApp.token=''"]
+
+  # GPU-enabled simulation (requires NVIDIA Docker)
+  sim-gpu:
+    build:
+      context: .
+      target: gpu
+    image: unified-sim:gpu
+    container_name: unified-sim-gpu
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - ./output:/app/output
+      - ./checkpoints:/app/checkpoints
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - SIM_QUANTUM_GPU=true
+    command: ["sim", "info"]
+
+  # Run tests
+  test:
+    build:
+      context: .
+      target: test
+    image: unified-sim:test
+    container_name: unified-sim-test
+    volumes:
+      - ./coverage:/app/coverage
+    command: ["pytest", "tests", "-v", "--cov=sim", "--cov-report=html:/app/coverage"]
+
+  # Documentation builder
+  docs:
+    build:
+      context: .
+      target: development
+    image: unified-sim:docs
+    container_name: unified-sim-docs
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./docs:/app/docs
+    working_dir: /app/docs
+    command: ["python", "-m", "http.server", "8000", "--directory", "_build/html"]
+
+networks:
+  default:
+    name: unified-sim-network
+
+volumes:
+  output:
+  checkpoints:
+  coverage:
+
