@@ -4,7 +4,7 @@
 # ==============================================================================
 # Base stage with common dependencies
 # ==============================================================================
-FROM python:3.11-slim as base
+FROM python:3.11-slim AS base
 
 LABEL maintainer="Timur Isanov <tisanov@yahoo.com>"
 LABEL description="Unified Cosmological Simulation Framework"
@@ -30,7 +30,7 @@ WORKDIR /app
 # ==============================================================================
 # Builder stage - install dependencies
 # ==============================================================================
-FROM base as builder
+FROM base AS builder
 
 # Install build dependencies
 COPY requirements.txt pyproject.toml ./
@@ -40,7 +40,7 @@ RUN pip install --upgrade pip setuptools wheel \
 # ==============================================================================
 # Production stage (CPU only)
 # ==============================================================================
-FROM base as production
+FROM base AS production
 
 # Copy installed packages from builder
 COPY --from=builder /root/.local /home/simuser/.local
@@ -63,7 +63,7 @@ CMD ["sim", "info"]
 # ==============================================================================
 # Development stage
 # ==============================================================================
-FROM production as development
+FROM production AS development
 
 USER root
 
@@ -82,7 +82,7 @@ CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-r
 # ==============================================================================
 # GPU stage (NVIDIA CUDA)
 # ==============================================================================
-FROM nvidia/cuda:12.2.0-runtime-ubuntu22.04 as gpu
+FROM nvidia/cuda:12.2.0-runtime-ubuntu22.04 AS gpu
 
 LABEL maintainer="Timur Isanov <tisanov@yahoo.com>"
 LABEL description="Unified Cosmological Simulation Framework (GPU)"
@@ -118,14 +118,14 @@ CMD ["sim", "info"]
 # ==============================================================================
 # Test stage
 # ==============================================================================
-FROM development as test
+FROM development AS test
 
 USER root
 RUN pip install pytest-cov
 USER simuser
 
-# Run tests on build
-RUN pytest tests -v --cov=sim
+# Run tests on build (coverage disabled during build due to filesystem restrictions)
+RUN pytest tests -v
 
 CMD ["pytest", "tests", "-v"]
 
