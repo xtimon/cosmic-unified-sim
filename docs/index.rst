@@ -64,11 +64,25 @@ Contents
 
 .. toctree::
    :maxdepth: 2
-   :caption: User Guide
+   :caption: Getting Started
 
    installation
    quickstart
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Tutorials
+
    tutorials/index
+   tutorials/quantum_basics
+   tutorials/nbody_simulation
+   tutorials/coherence_evolution
+   tutorials/custom_integrators
+   tutorials/visualization_guide
+   tutorials/multiverse_analysis
+   tutorials/gpu_acceleration
+   tutorials/extending_framework
+   tutorials/performance_optimization
 
 .. toctree::
    :maxdepth: 2
