@@ -69,118 +69,118 @@ jobs:
 
     - name: Create Wiki Home page
       run: |
-        cat > wiki_output/Home.md << 'EOF'
-        # Unified Cosmological Simulation Framework
-        
-        A comprehensive Python library for cosmological simulations combining:
-        - **Quantum mechanics** and emergence
-        - **N-body** celestial dynamics
-        - **Coherence** evolution
-        - **Matter genesis** in early universe
-        - **Holographic** information analysis
-        
-        ## Quick Links
-        
-        ### Getting Started
-        - [Installation](installation)
-        - [Quick Start Guide](quickstart)
-        
-        ### Tutorials
-        - [Quantum Basics](tutorials/quantum_basics)
-        - [N-Body Simulation](tutorials/nbody_simulation)
-        - [Coherence Evolution](tutorials/coherence_evolution)
-        - [Custom Integrators](tutorials/custom_integrators)
-        - [Visualization Guide](tutorials/visualization_guide)
-        - [GPU Acceleration](tutorials/gpu_acceleration)
-        
-        ### API Reference
-        - [Quantum Module](api/quantum)
-        - [Cosmic Module](api/cosmic)
-        - [Coherence Module](api/coherence)
-        - [Genesis Module](api/genesis)
-        - [Holographic Module](api/holographic)
-        - [Core Utilities](api/core)
-        
-        ### Development
-        - [Contributing](contributing)
-        - [Changelog](changelog)
-        
-        ## Installation
-        
-        ```bash
-        pip install cosmic-unified-sim
-        
-        # With GPU support
-        pip install cosmic-unified-sim[gpu-cuda]
-        ```
-        
-        ## Basic Example
-        
-        ```python
-        from sim import QuantumFabric, NBodySimulator, CoherenceModel
-        
-        # Quantum simulation
-        qf = QuantumFabric(num_qubits=3)
-        qf.apply_hadamard(0)
-        qf.apply_entanglement_operator([(0, 1), (1, 2)])
-        print(f"Entanglement entropy: {qf.get_entanglement_entropy():.4f}")
-        
-        # N-body simulation  
-        from sim.cosmic import SystemPresets
-        presets = SystemPresets()
-        bodies = presets.create_earth_moon_system()
-        sim = NBodySimulator(bodies)
-        times, states = sim.simulate(t_span=(0, 30*24*3600), n_points=1000)
-        ```
-        
-        ## Links
-        
-        - [PyPI Package](https://pypi.org/project/cosmic-unified-sim/)
-        - [GitHub Repository](https://github.com/xtimon/cosmic-unified-sim)
-        - [Full Documentation](https://cosmic-unified-sim.readthedocs.io/)
-        EOF
+        cat > wiki_output/Home.md << 'EOFHOME'
+# Unified Cosmological Simulation Framework
+
+A comprehensive Python library for cosmological simulations combining:
+- **Quantum mechanics** and emergence
+- **N-body** celestial dynamics
+- **Coherence** evolution
+- **Matter genesis** in early universe
+- **Holographic** information analysis
+
+## Quick Links
+
+### Getting Started
+- [[Installation]]
+- [[Quickstart|Quick Start Guide]]
+
+### Tutorials
+- [[tutorials-quantum_basics|Quantum Basics]]
+- [[tutorials-nbody_simulation|N-Body Simulation]]
+- [[tutorials-coherence_evolution|Coherence Evolution]]
+- [[tutorials-custom_integrators|Custom Integrators]]
+- [[tutorials-visualization_guide|Visualization Guide]]
+- [[tutorials-gpu_acceleration|GPU Acceleration]]
+
+### API Reference
+- [[api-quantum|Quantum Module]]
+- [[api-cosmic|Cosmic Module]]
+- [[api-coherence|Coherence Module]]
+- [[api-genesis|Genesis Module]]
+- [[api-holographic|Holographic Module]]
+- [[api-core|Core Utilities]]
+
+### Development
+- [[Contributing]]
+- [[Changelog]]
+
+## Installation
+
+```bash
+pip install cosmic-unified-sim
+
+# With GPU support
+pip install cosmic-unified-sim[gpu-cuda]
+```
+
+## Basic Example
+
+```python
+from sim import QuantumFabric, NBodySimulator, CoherenceModel
+
+# Quantum simulation
+qf = QuantumFabric(num_qubits=3)
+qf.apply_hadamard(0)
+qf.apply_entanglement_operator([(0, 1), (1, 2)])
+print(f"Entanglement entropy: {qf.get_entanglement_entropy():.4f}")
+
+# N-body simulation  
+from sim.cosmic import SystemPresets
+presets = SystemPresets()
+bodies = presets.create_earth_moon_system()
+sim = NBodySimulator(bodies)
+times, states = sim.simulate(t_span=(0, 30*24*3600), n_points=1000)
+```
+
+## Links
+
+- [PyPI Package](https://pypi.org/project/cosmic-unified-sim/)
+- [GitHub Repository](https://github.com/xtimon/unified-sim)
+- [Full Documentation](https://unified-sim.readthedocs.io/)
+EOFHOME
 
     - name: Create Wiki Sidebar
       run: |
-        cat > wiki_output/_Sidebar.md << 'EOF'
-        ## Navigation
-        
-        **[Home](Home)**
-        
-        ### Getting Started
-        - [Installation](installation)
-        - [Quick Start](quickstart)
-        
-        ### Tutorials
-        - [Quantum Basics](tutorials/quantum_basics)
-        - [N-Body Simulation](tutorials/nbody_simulation)
-        - [Coherence Evolution](tutorials/coherence_evolution)
-        - [Custom Integrators](tutorials/custom_integrators)
-        - [Visualization](tutorials/visualization_guide)
-        - [Multiverse Analysis](tutorials/multiverse_analysis)
-        - [GPU Acceleration](tutorials/gpu_acceleration)
-        - [Extending](tutorials/extending_framework)
-        - [Performance](tutorials/performance_optimization)
-        
-        ### API Reference
-        - [Quantum](api/quantum)
-        - [Cosmic](api/cosmic)
-        - [Coherence](api/coherence)
-        - [Genesis](api/genesis)
-        - [Holographic](api/holographic)
-        - [Core](api/core)
-        
-        ### Development
-        - [Contributing](contributing)
-        - [Changelog](changelog)
-        EOF
+        cat > wiki_output/_Sidebar.md << 'EOFSIDEBAR'
+## Navigation
+
+**[[Home]]**
+
+### Getting Started
+- [[Installation]]
+- [[Quickstart|Quick Start]]
+
+### Tutorials
+- [[tutorials-quantum_basics|Quantum Basics]]
+- [[tutorials-nbody_simulation|N-Body Simulation]]
+- [[tutorials-coherence_evolution|Coherence Evolution]]
+- [[tutorials-custom_integrators|Custom Integrators]]
+- [[tutorials-visualization_guide|Visualization]]
+- [[tutorials-multiverse_analysis|Multiverse Analysis]]
+- [[tutorials-gpu_acceleration|GPU Acceleration]]
+- [[tutorials-extending_framework|Extending]]
+- [[tutorials-performance_optimization|Performance]]
+
+### API Reference
+- [[api-quantum|Quantum]]
+- [[api-cosmic|Cosmic]]
+- [[api-coherence|Coherence]]
+- [[api-genesis|Genesis]]
+- [[api-holographic|Holographic]]
+- [[api-core|Core]]
+
+### Development
+- [[Contributing]]
+- [[Changelog]]
+EOFSIDEBAR
 
     - name: Create Wiki Footer
       run: |
-        cat > wiki_output/_Footer.md << 'EOF'
-        ---
-        **Unified Cosmological Simulation** | [GitHub](https://github.com/xtimon/cosmic-unified-sim) | [PyPI](https://pypi.org/project/cosmic-unified-sim/) | MIT License
-        EOF
+        cat > wiki_output/_Footer.md << 'EOFFOOTER'
+---
+**Unified Cosmological Simulation** | [GitHub](https://github.com/xtimon/unified-sim) | [PyPI](https://pypi.org/project/cosmic-unified-sim/) | MIT License
+EOFFOOTER
 
     - name: Checkout wiki repository
       uses: actions/checkout@v4
@@ -229,11 +229,29 @@ jobs:
           rm -rf tutorials
         fi
         
-        # Update links in all files to use flat structure
+        # Update links in all markdown files to use flat structure
         for file in *.md; do
           if [ -f "$file" ]; then
+            # Fix standard markdown links: (api/something) -> (api-something)
             sed -i 's|(api/|(api-|g' "$file"
             sed -i 's|(tutorials/|(tutorials-|g' "$file"
+            
+            # Fix links with .html extension (from Sphinx): .html) -> )
+            sed -i 's|\.html)|)|g' "$file"
+            
+            # Fix links with .rst extension: .rst) -> )
+            sed -i 's|\.rst)|)|g' "$file"
+            
+            # Fix relative path links: (./api/ -> (api-
+            sed -i 's|(\./api/|(api-|g' "$file"
+            sed -i 's|(\./tutorials/|(tutorials-|g' "$file"
+            
+            # Fix ../api/ style links from tutorials
+            sed -i 's|(\.\./api/|(api-|g' "$file"
+            sed -i 's|(\.\./tutorials/|(tutorials-|g' "$file"
+            
+            # Remove .md extension from links (GitHub Wiki auto-resolves)
+            sed -i 's|\.md)|)|g' "$file"
           fi
         done
 

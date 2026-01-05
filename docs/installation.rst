@@ -124,4 +124,3 @@ Or from command line:
 
    sim info
    sim info --gpu  # Check GPU availability
-
