@@ -6,13 +6,13 @@ Unified constants module combining fundamental physics constants
 and cosmological parameters from Planck 2018 and other surveys.
 """
 
-from .fundamental import PhysicalConstants
 from .cosmological import (
-    CosmologicalConstants,
+    FUTURE_STAGES,
     UNIVERSE_STAGES,
     UNIVERSE_STAGES_SHORT,
-    FUTURE_STAGES,
+    CosmologicalConstants,
 )
+from .fundamental import PhysicalConstants
 
 __all__ = [
     "PhysicalConstants",
@@ -21,4 +21,3 @@ __all__ = [
     "UNIVERSE_STAGES_SHORT",
     "FUTURE_STAGES",
 ]
-

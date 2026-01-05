@@ -4,7 +4,7 @@ Unified Cosmological Simulation Framework
 
 A comprehensive Python library for cosmological simulations combining:
 - Quantum mechanics and emergence (quantum module)
-- N-body celestial dynamics (cosmic module)  
+- N-body celestial dynamics (cosmic module)
 - Universe coherence evolution (coherence module)
 - Matter genesis in early universe (genesis module)
 - Holographic information analysis (holographic module)
@@ -21,32 +21,6 @@ License: MIT
 __version__ = "0.1.0"
 __author__ = "Timur Isanov"
 
-# Core constants
-from sim.constants import (
-    PhysicalConstants,
-    CosmologicalConstants,
-    UNIVERSE_STAGES,
-    FUTURE_STAGES,
-)
-
-# Quantum module
-from sim.quantum import (
-    QuantumFabric,
-    EmergentLaws,
-    Observer,
-    HUMAN_OBSERVER,
-    LIGO_OBSERVER,
-    ELECTRON_OBSERVER,
-)
-
-# Cosmic N-body module
-from sim.cosmic import (
-    Body,
-    NBodySimulator,
-    SystemPresets,
-    CosmicCalculator,
-)
-
 # Coherence module
 from sim.coherence import (
     CoherenceModel,
@@ -54,12 +28,28 @@ from sim.coherence import (
     UniverseSimulator,
 )
 
+# Core constants
+from sim.constants import (
+    FUTURE_STAGES,
+    UNIVERSE_STAGES,
+    CosmologicalConstants,
+    PhysicalConstants,
+)
+
+# Cosmic N-body module
+from sim.cosmic import (
+    Body,
+    CosmicCalculator,
+    NBodySimulator,
+    SystemPresets,
+)
+
 # Genesis module (matter creation)
 from sim.genesis import (
-    ParametricResonance,
     LeptogenesisModel,
-    QuantumCreation,
     MatterGenesisSimulation,
+    ParametricResonance,
+    QuantumCreation,
 )
 
 # Holographic module
@@ -68,13 +58,23 @@ from sim.holographic import (
     UniverseFormulaReport,
 )
 
+# Quantum module
+from sim.quantum import (
+    ELECTRON_OBSERVER,
+    HUMAN_OBSERVER,
+    LIGO_OBSERVER,
+    EmergentLaws,
+    Observer,
+    QuantumFabric,
+)
+
 # Visualization
 from sim.visualization import (
     SimulationVisualizer,
-    plot_trajectories_3d,
+    animate_simulation,
     plot_coherence_evolution,
     plot_quantum_state,
-    animate_simulation,
+    plot_trajectories_3d,
 )
 
 __all__ = [
@@ -82,7 +82,7 @@ __all__ = [
     "__version__",
     # Constants
     "PhysicalConstants",
-    "CosmologicalConstants", 
+    "CosmologicalConstants",
     "UNIVERSE_STAGES",
     "FUTURE_STAGES",
     # Quantum
@@ -90,7 +90,7 @@ __all__ = [
     "EmergentLaws",
     "Observer",
     "HUMAN_OBSERVER",
-    "LIGO_OBSERVER", 
+    "LIGO_OBSERVER",
     "ELECTRON_OBSERVER",
     # Cosmic
     "Body",
@@ -116,4 +116,3 @@ __all__ = [
     "plot_quantum_state",
     "animate_simulation",
 ]
-

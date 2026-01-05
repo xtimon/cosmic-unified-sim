@@ -6,22 +6,22 @@ N-body gravitational simulations with multiple integration methods.
 """
 
 from .body import Body
-from .nbody import NBodySimulator
-from .presets import SystemPresets
 from .calculator import CosmicCalculator
 from .integrators import (
+    AdaptiveIntegrator,
+    EulerIntegrator,
+    ForestRuthIntegrator,
     Integrator,
     IntegratorState,
-    EulerIntegrator,
-    VerletIntegrator,
     LeapfrogIntegrator,
+    VerletIntegrator,
     Yoshida4Integrator,
     Yoshida6Integrator,
-    ForestRuthIntegrator,
-    AdaptiveIntegrator,
     get_integrator,
     list_integrators,
 )
+from .nbody import NBodySimulator
+from .presets import SystemPresets
 
 __all__ = [
     # Main classes

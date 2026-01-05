@@ -9,9 +9,9 @@ Matter creation simulations for the early universe:
 - Full matter genesis simulation
 """
 
-from .resonance import ParametricResonance
 from .leptogenesis import LeptogenesisModel
 from .quantum_creation import QuantumCreation
+from .resonance import ParametricResonance
 from .simulation import MatterGenesisSimulation
 
 __all__ = [
@@ -20,4 +20,3 @@ __all__ = [
     "QuantumCreation",
     "MatterGenesisSimulation",
 ]
-

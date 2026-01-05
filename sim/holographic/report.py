@@ -6,44 +6,45 @@ Generate reports on holographic analysis results.
 """
 
 from typing import Dict, Optional
+
 import numpy as np
 
-from .analysis import HolographicAnalysis, COSMOLOGICAL_MODELS
+from .analysis import COSMOLOGICAL_MODELS, HolographicAnalysis
 
 
 class UniverseFormulaReport:
     """
     Generate comprehensive reports on k-alpha relation.
-    
+
     Examples:
     ---------
     >>> from sim.holographic import UniverseFormulaReport
     >>> report = UniverseFormulaReport()
     >>> report.run_final_report()
     """
-    
+
     def __init__(self):
         """Initialize report generator."""
         self.analysis = HolographicAnalysis()
         self.results = None
-    
+
     def run_analysis(self) -> Dict:
         """Run full analysis and store results."""
         self.results = {
-            'all_models': self.analysis.analyze_all_models(),
-            'formula_comparison': self.analysis.formula_comparison(),
-            'significance': self.analysis.significance_test(),
-            'information': self.analysis.information_capacity(),
+            "all_models": self.analysis.analyze_all_models(),
+            "formula_comparison": self.analysis.formula_comparison(),
+            "significance": self.analysis.significance_test(),
+            "information": self.analysis.information_capacity(),
         }
         return self.results
-    
+
     def create_executive_summary(self) -> str:
         """Create executive summary."""
         if self.results is None:
             self.run_analysis()
-        
+
         r = self.results
-        
+
         return f"""
 EXECUTIVE SUMMARY: Holographic Information Ratio Analysis
 =========================================================
@@ -67,12 +68,12 @@ Holographic Information:
 - Maximum capacity: {r['information']['max_information_bits']:.2e} bits
 - With k factor: {r['information']['actual_information_bits']:.2e} bits
 """
-    
+
     def create_publication_template(self) -> str:
         """Create publication-ready text."""
         if self.results is None:
             self.run_analysis()
-        
+
         return f"""
 ABSTRACT
 --------
@@ -108,14 +109,14 @@ The empirical relation k ≈ 66α has an error of
 {self.results['all_models']['mean_error_vs_66alpha']:.2f}% and 
 p-value of {self.results['significance']['p_value']:.3f}.
 """
-    
+
     def create_presentation_slides(self) -> str:
         """Create presentation-style summary."""
         if self.results is None:
             self.run_analysis()
-        
+
         r = self.results
-        
+
         return f"""
 SLIDE 1: Title
 ==============
@@ -151,40 +152,42 @@ SLIDE 5: Conclusions
 • May hint at deeper physics
 • Requires theoretical explanation
 """
-    
+
     def create_checklist(self) -> str:
         """Create verification checklist."""
         if self.results is None:
             self.run_analysis()
-        
+
+        err = self.results["all_models"]["mean_error_vs_66alpha"]
+        pval = self.results["significance"]["p_value"]
+        std_k = self.results["all_models"]["std_k"]
         items = [
-            f"[{'✓' if self.results['all_models']['mean_error_vs_66alpha'] < 5 else ' '}] Error < 5%",
-            f"[{'✓' if self.results['significance']['p_value'] < 0.3 else ' '}] p-value reasonable",
+            f"[{'✓' if err < 5 else ' '}] Error < 5%",
+            f"[{'✓' if pval < 0.3 else ' '}] p-value reasonable",
             f"[{'✓' if len(COSMOLOGICAL_MODELS) >= 3 else ' '}] Multiple models tested",
-            f"[{'✓' if self.results['all_models']['std_k'] < 0.05 else ' '}] Consistency across models",
+            f"[{'✓' if std_k < 0.05 else ' '}] Consistency across models",
         ]
-        
+
         return "VERIFICATION CHECKLIST\n" + "=" * 20 + "\n" + "\n".join(items)
-    
+
     def save_results(self, filepath: str) -> None:
         """Save results to file."""
         if self.results is None:
             self.run_analysis()
-        
-        with open(filepath, 'w') as f:
+
+        with open(filepath, "w") as f:
             f.write(self.create_executive_summary())
             f.write("\n\n")
             f.write(self.create_publication_template())
             f.write("\n\n")
             f.write(self.create_checklist())
-    
+
     def run_final_report(self) -> None:
         """Run and print full report."""
         self.run_analysis()
-        
+
         print(self.create_executive_summary())
         print("\n" + "=" * 60 + "\n")
         print(self.create_presentation_slides())
         print("\n" + "=" * 60 + "\n")
         print(self.create_checklist())
-

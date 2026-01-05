@@ -5,29 +5,29 @@ Quantum Operators
 Optimized quantum gate operators using sparse matrices and caching.
 """
 
+from functools import lru_cache
+from typing import Dict, List, Optional, Tuple
+
 import numpy as np
 from scipy import sparse
-from typing import Dict, Tuple, Optional, List
-from functools import lru_cache
-import warnings
 
 
 class OperatorCache:
     """
     LRU cache for quantum operators.
-    
+
     Caches gate matrices to avoid redundant computation.
     """
-    
+
     def __init__(self, max_size: int = 128):
         self.max_size = max_size
         self._cache: Dict[str, np.ndarray] = {}
         self._access_order: List[str] = []
-    
+
     def _make_key(self, gate: str, *args) -> str:
         """Create cache key from gate name and arguments."""
         return f"{gate}_{'-'.join(str(a) for a in args)}"
-    
+
     def get(self, gate: str, *args) -> Optional[np.ndarray]:
         """Get cached operator."""
         key = self._make_key(gate, *args)
@@ -37,30 +37,30 @@ class OperatorCache:
             self._access_order.append(key)
             return self._cache[key]
         return None
-    
+
     def put(self, gate: str, operator: np.ndarray, *args) -> None:
         """Cache an operator."""
         key = self._make_key(gate, *args)
-        
+
         # Evict if full
         while len(self._cache) >= self.max_size:
             old_key = self._access_order.pop(0)
             del self._cache[old_key]
-        
+
         self._cache[key] = operator
         self._access_order.append(key)
-    
+
     def clear(self) -> None:
         """Clear the cache."""
         self._cache.clear()
         self._access_order.clear()
-    
+
     def stats(self) -> Dict[str, int]:
         """Get cache statistics."""
         return {
             "size": len(self._cache),
             "max_size": self.max_size,
-            "memory_bytes": sum(op.nbytes for op in self._cache.values())
+            "memory_bytes": sum(op.nbytes for op in self._cache.values()),
         }
 
 
@@ -71,6 +71,7 @@ _operator_cache = OperatorCache()
 # ============================================================================
 # Single-Qubit Gates
 # ============================================================================
+
 
 @lru_cache(maxsize=32)
 def pauli_x() -> np.ndarray:
@@ -122,33 +123,28 @@ def rotation_y(theta: float) -> np.ndarray:
 
 def rotation_z(theta: float) -> np.ndarray:
     """Rotation around Z axis: Rz(θ) = exp(-iθZ/2)."""
-    return np.array([
-        [np.exp(-1j * theta / 2), 0],
-        [0, np.exp(1j * theta / 2)]
-    ], dtype=complex)
+    return np.array([[np.exp(-1j * theta / 2), 0], [0, np.exp(1j * theta / 2)]], dtype=complex)
 
 
 # ============================================================================
 # Multi-Qubit Gate Construction (Optimized)
 # ============================================================================
 
+
 def expand_single_qubit_gate(
-    gate: np.ndarray,
-    qubit_index: int,
-    num_qubits: int,
-    use_sparse: bool = True
+    gate: np.ndarray, qubit_index: int, num_qubits: int, use_sparse: bool = True
 ) -> sparse.csr_matrix:
     """
     Expand single-qubit gate to full Hilbert space.
-    
+
     Uses tensor product: I ⊗ ... ⊗ G ⊗ ... ⊗ I
-    
+
     Args:
         gate: 2x2 single-qubit gate
         qubit_index: Target qubit (0-indexed, qubit 0 is least significant)
         num_qubits: Total number of qubits
         use_sparse: Return sparse matrix
-        
+
     Returns:
         2^n × 2^n matrix
     """
@@ -157,42 +153,40 @@ def expand_single_qubit_gate(
     cached = _operator_cache.get("expand", gate_hash, qubit_index, num_qubits)
     if cached is not None:
         return sparse.csr_matrix(cached) if use_sparse else cached
-    
+
     # Build operator using tensor products
-    I = sparse.eye(2, format='csr')
+    I = sparse.eye(2, format="csr")
     G = sparse.csr_matrix(gate)
-    
-    result = sparse.eye(1, format='csr')
+
+    result = sparse.eye(1, format="csr")
     for i in range(num_qubits):
         if i == qubit_index:
             result = sparse.kron(G, result)
         else:
             result = sparse.kron(I, result)
-    
+
     # Cache and return
     if not use_sparse:
         result = result.toarray()
-    
-    _operator_cache.put("expand", result.toarray() if use_sparse else result, gate_hash, qubit_index, num_qubits)
-    
+
+    _operator_cache.put(
+        "expand", result.toarray() if use_sparse else result, gate_hash, qubit_index, num_qubits
+    )
+
     return result
 
 
-def build_cnot_sparse(
-    control: int,
-    target: int,
-    num_qubits: int
-) -> sparse.csr_matrix:
+def build_cnot_sparse(control: int, target: int, num_qubits: int) -> sparse.csr_matrix:
     """
     Build CNOT gate using sparse matrix.
-    
+
     CNOT|x,y⟩ = |x, y⊕x⟩
-    
+
     Args:
         control: Control qubit index
-        target: Target qubit index  
+        target: Target qubit index
         num_qubits: Total number of qubits
-        
+
     Returns:
         Sparse 2^n × 2^n CNOT matrix
     """
@@ -200,13 +194,13 @@ def build_cnot_sparse(
     cached = _operator_cache.get("cnot", control, target, num_qubits)
     if cached is not None:
         return sparse.csr_matrix(cached)
-    
-    dim = 2 ** num_qubits
-    
+
+    dim = 2**num_qubits
+
     # Build COO data for sparse matrix
     rows = []
     cols = []
-    
+
     for i in range(dim):
         control_bit = (i >> control) & 1
         if control_bit == 1:
@@ -216,36 +210,32 @@ def build_cnot_sparse(
             j = i
         rows.append(j)
         cols.append(i)
-    
+
     data = np.ones(dim, dtype=complex)
     result = sparse.csr_matrix((data, (rows, cols)), shape=(dim, dim))
-    
+
     # Cache
     _operator_cache.put("cnot", result.toarray(), control, target, num_qubits)
-    
+
     return result
 
 
-def build_cz_sparse(
-    control: int,
-    target: int,
-    num_qubits: int
-) -> sparse.csr_matrix:
+def build_cz_sparse(control: int, target: int, num_qubits: int) -> sparse.csr_matrix:
     """
     Build CZ (controlled-Z) gate using sparse matrix.
-    
+
     CZ|x,y⟩ = (-1)^(xy)|x,y⟩
-    
+
     Args:
         control: Control qubit index
         target: Target qubit index
         num_qubits: Total number of qubits
-        
+
     Returns:
         Sparse CZ matrix
     """
-    dim = 2 ** num_qubits
-    
+    dim = 2**num_qubits
+
     data = []
     for i in range(dim):
         control_bit = (i >> control) & 1
@@ -254,127 +244,116 @@ def build_cz_sparse(
             data.append(-1.0 + 0j)
         else:
             data.append(1.0 + 0j)
-    
-    return sparse.diags(data, format='csr')
+
+    return sparse.diags(data, format="csr")
 
 
-def build_swap_sparse(
-    qubit1: int,
-    qubit2: int,
-    num_qubits: int
-) -> sparse.csr_matrix:
+def build_swap_sparse(qubit1: int, qubit2: int, num_qubits: int) -> sparse.csr_matrix:
     """
     Build SWAP gate using sparse matrix.
-    
+
     SWAP|x,y⟩ = |y,x⟩
-    
+
     Args:
         qubit1: First qubit index
         qubit2: Second qubit index
         num_qubits: Total number of qubits
-        
+
     Returns:
         Sparse SWAP matrix
     """
-    dim = 2 ** num_qubits
-    
+    dim = 2**num_qubits
+
     rows = []
     cols = []
-    
+
     for i in range(dim):
         bit1 = (i >> qubit1) & 1
         bit2 = (i >> qubit2) & 1
-        
+
         # Swap the bits
         j = i
         j = (j & ~(1 << qubit1)) | (bit2 << qubit1)
         j = (j & ~(1 << qubit2)) | (bit1 << qubit2)
-        
+
         rows.append(j)
         cols.append(i)
-    
+
     data = np.ones(dim, dtype=complex)
     return sparse.csr_matrix((data, (rows, cols)), shape=(dim, dim))
 
 
 def build_toffoli_sparse(
-    control1: int,
-    control2: int,
-    target: int,
-    num_qubits: int
+    control1: int, control2: int, target: int, num_qubits: int
 ) -> sparse.csr_matrix:
     """
     Build Toffoli (CCNOT) gate using sparse matrix.
-    
+
     Toffoli|x,y,z⟩ = |x, y, z⊕(x∧y)⟩
-    
+
     Args:
         control1: First control qubit
         control2: Second control qubit
         target: Target qubit
         num_qubits: Total number of qubits
-        
+
     Returns:
         Sparse Toffoli matrix
     """
-    dim = 2 ** num_qubits
-    
+    dim = 2**num_qubits
+
     rows = []
     cols = []
-    
+
     for i in range(dim):
         c1 = (i >> control1) & 1
         c2 = (i >> control2) & 1
-        
+
         if c1 == 1 and c2 == 1:
             j = i ^ (1 << target)
         else:
             j = i
-        
+
         rows.append(j)
         cols.append(i)
-    
+
     data = np.ones(dim, dtype=complex)
     return sparse.csr_matrix((data, (rows, cols)), shape=(dim, dim))
 
 
 def build_controlled_rotation(
-    control: int,
-    target: int,
-    num_qubits: int,
-    theta: float,
-    axis: str = 'z'
+    control: int, target: int, num_qubits: int, theta: float, axis: str = "z"
 ) -> sparse.csr_matrix:
     """
     Build controlled rotation gate.
-    
+
     Args:
         control: Control qubit
         target: Target qubit
         num_qubits: Total qubits
         theta: Rotation angle
         axis: Rotation axis ('x', 'y', or 'z')
-        
+
     Returns:
         Sparse controlled rotation matrix
     """
-    dim = 2 ** num_qubits
-    
+    dim = 2**num_qubits
+
     # Get rotation matrix
-    if axis == 'x':
+    if axis == "x":
         rot = rotation_x(theta)
-    elif axis == 'y':
+    elif axis == "y":
         rot = rotation_y(theta)
     else:
         rot = rotation_z(theta)
-    
+
     rows = []
     cols = []
     data = []
-    
+
     for i in range(dim):
         control_bit = (i >> control) & 1
-        
+
         if control_bit == 0:
             # Identity on this subspace
             rows.append(i)
@@ -383,7 +362,7 @@ def build_controlled_rotation(
         else:
             # Apply rotation on target
             target_bit = (i >> target) & 1
-            
+
             for out_bit in [0, 1]:
                 j = (i & ~(1 << target)) | (out_bit << target)
                 coeff = rot[out_bit, target_bit]
@@ -391,7 +370,7 @@ def build_controlled_rotation(
                     rows.append(j)
                     cols.append(i)
                     data.append(coeff)
-    
+
     return sparse.csr_matrix((data, (rows, cols)), shape=(dim, dim))
 
 
@@ -399,17 +378,15 @@ def build_controlled_rotation(
 # Utility Functions
 # ============================================================================
 
-def apply_sparse_operator(
-    operator: sparse.spmatrix,
-    state: np.ndarray
-) -> np.ndarray:
+
+def apply_sparse_operator(operator: sparse.spmatrix, state: np.ndarray) -> np.ndarray:
     """
     Apply sparse operator to state vector efficiently.
-    
+
     Args:
         operator: Sparse operator matrix
         state: State vector
-        
+
     Returns:
         New state vector
     """
@@ -419,10 +396,10 @@ def apply_sparse_operator(
 def tensor_product(*operators) -> np.ndarray:
     """
     Compute tensor product of multiple operators.
-    
+
     Args:
         *operators: Variable number of operators
-        
+
     Returns:
         Tensor product
     """
@@ -462,7 +439,7 @@ def operator_norm(operator: np.ndarray) -> float:
 def fidelity(state1: np.ndarray, state2: np.ndarray) -> float:
     """
     Compute fidelity between two pure states.
-    
+
     F = |⟨ψ₁|ψ₂⟩|²
     """
     return abs(np.vdot(state1, state2)) ** 2
@@ -471,7 +448,7 @@ def fidelity(state1: np.ndarray, state2: np.ndarray) -> float:
 def trace_distance(rho1: np.ndarray, rho2: np.ndarray) -> float:
     """
     Compute trace distance between density matrices.
-    
+
     D(ρ₁, ρ₂) = ½ Tr|ρ₁ - ρ₂|
     """
     diff = rho1 - rho2
@@ -479,39 +456,35 @@ def trace_distance(rho1: np.ndarray, rho2: np.ndarray) -> float:
     return 0.5 * np.sum(np.abs(eigenvalues))
 
 
-def partial_trace(
-    rho: np.ndarray,
-    dims: Tuple[int, ...],
-    trace_out: int
-) -> np.ndarray:
+def partial_trace(rho: np.ndarray, dims: Tuple[int, ...], trace_out: int) -> np.ndarray:
     """
     Compute partial trace over specified subsystem.
-    
+
     Args:
         rho: Density matrix
         dims: Dimensions of each subsystem
         trace_out: Index of subsystem to trace out
-        
+
     Returns:
         Reduced density matrix
     """
     n_subsystems = len(dims)
-    
+
     # Reshape to tensor
     total_dim = int(np.prod(dims))
     rho_tensor = rho.reshape(dims + dims)
-    
+
     # Axes to trace
     axis1 = trace_out
     axis2 = trace_out + n_subsystems
-    
+
     # Trace
     result = np.trace(rho_tensor, axis1=axis1, axis2=axis2)
-    
+
     # Remaining dimensions
     remaining_dims = [d for i, d in enumerate(dims) if i != trace_out]
     remaining_dim = int(np.prod(remaining_dims))
-    
+
     return result.reshape(remaining_dim, remaining_dim)
 
 
@@ -523,4 +496,3 @@ def get_cache_stats() -> Dict[str, int]:
 def clear_cache() -> None:
     """Clear operator cache."""
     _operator_cache.clear()
-
