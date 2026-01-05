@@ -122,12 +122,16 @@ class SimulationConfig:
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
+        vis_dict = asdict(self.visualization)
+        # Convert tuple to list for YAML compatibility
+        if isinstance(vis_dict.get("figsize"), tuple):
+            vis_dict["figsize"] = list(vis_dict["figsize"])
         return {
             "quantum": asdict(self.quantum),
             "cosmic": asdict(self.cosmic),
             "coherence": asdict(self.coherence),
             "genesis": asdict(self.genesis),
-            "visualization": asdict(self.visualization),
+            "visualization": vis_dict,
             "output": asdict(self.output),
             "logging": asdict(self.logging),
         }
