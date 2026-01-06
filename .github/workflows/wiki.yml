@@ -69,118 +69,118 @@ jobs:
 
     - name: Create Wiki Home page
       run: |
-        cat > wiki_output/Home.md << 'EOFHOME'
-# Unified Cosmological Simulation Framework
-
-A comprehensive Python library for cosmological simulations combining:
-- **Quantum mechanics** and emergence
-- **N-body** celestial dynamics
-- **Coherence** evolution
-- **Matter genesis** in early universe
-- **Holographic** information analysis
-
-## Quick Links
-
-### Getting Started
-- [[Installation]]
-- [[Quickstart|Quick Start Guide]]
-
-### Tutorials
-- [[tutorials-quantum_basics|Quantum Basics]]
-- [[tutorials-nbody_simulation|N-Body Simulation]]
-- [[tutorials-coherence_evolution|Coherence Evolution]]
-- [[tutorials-custom_integrators|Custom Integrators]]
-- [[tutorials-visualization_guide|Visualization Guide]]
-- [[tutorials-gpu_acceleration|GPU Acceleration]]
-
-### API Reference
-- [[api-quantum|Quantum Module]]
-- [[api-cosmic|Cosmic Module]]
-- [[api-coherence|Coherence Module]]
-- [[api-genesis|Genesis Module]]
-- [[api-holographic|Holographic Module]]
-- [[api-core|Core Utilities]]
-
-### Development
-- [[Contributing]]
-- [[Changelog]]
-
-## Installation
-
-```bash
-pip install cosmic-unified-sim
-
-# With GPU support
-pip install cosmic-unified-sim[gpu-cuda]
-```
-
-## Basic Example
-
-```python
-from sim import QuantumFabric, NBodySimulator, CoherenceModel
-
-# Quantum simulation
-qf = QuantumFabric(num_qubits=3)
-qf.apply_hadamard(0)
-qf.apply_entanglement_operator([(0, 1), (1, 2)])
-print(f"Entanglement entropy: {qf.get_entanglement_entropy():.4f}")
-
-# N-body simulation  
-from sim.cosmic import SystemPresets
-presets = SystemPresets()
-bodies = presets.create_earth_moon_system()
-sim = NBodySimulator(bodies)
-times, states = sim.simulate(t_span=(0, 30*24*3600), n_points=1000)
-```
-
-## Links
-
-- [PyPI Package](https://pypi.org/project/cosmic-unified-sim/)
-- [GitHub Repository](https://github.com/xtimon/unified-sim)
-- [Full Documentation](https://unified-sim.readthedocs.io/)
-EOFHOME
+        cat > wiki_output/Home.md << 'EOF'
+        # Unified Cosmological Simulation Framework
+        
+        A comprehensive Python library for cosmological simulations combining:
+        * **Quantum mechanics** and emergence
+        * **N-body** celestial dynamics
+        * **Coherence** evolution
+        * **Matter genesis** in early universe
+        * **Holographic** information analysis
+        
+        ## Quick Links
+        
+        ### Getting Started
+        * [[Installation]]
+        * [[Quickstart|Quick Start Guide]]
+        
+        ### Tutorials
+        * [[tutorials-quantum_basics|Quantum Basics]]
+        * [[tutorials-nbody_simulation|N-Body Simulation]]
+        * [[tutorials-coherence_evolution|Coherence Evolution]]
+        * [[tutorials-custom_integrators|Custom Integrators]]
+        * [[tutorials-visualization_guide|Visualization Guide]]
+        * [[tutorials-gpu_acceleration|GPU Acceleration]]
+        
+        ### API Reference
+        * [[api-quantum|Quantum Module]]
+        * [[api-cosmic|Cosmic Module]]
+        * [[api-coherence|Coherence Module]]
+        * [[api-genesis|Genesis Module]]
+        * [[api-holographic|Holographic Module]]
+        * [[api-core|Core Utilities]]
+        
+        ### Development
+        * [[Contributing]]
+        * [[Changelog]]
+        
+        ## Installation
+        
+        ```bash
+        pip install cosmic-unified-sim
+        
+        # With GPU support
+        pip install cosmic-unified-sim[gpu-cuda]
+        ```
+        
+        ## Basic Example
+        
+        ```python
+        from sim import QuantumFabric, NBodySimulator, CoherenceModel
+        
+        # Quantum simulation
+        qf = QuantumFabric(num_qubits=3)
+        qf.apply_hadamard(0)
+        qf.apply_entanglement_operator([(0, 1), (1, 2)])
+        print(f"Entanglement entropy: {qf.get_entanglement_entropy():.4f}")
+        
+        # N-body simulation  
+        from sim.cosmic import SystemPresets
+        presets = SystemPresets()
+        bodies = presets.create_earth_moon_system()
+        sim = NBodySimulator(bodies)
+        times, states = sim.simulate(t_span=(0, 30*24*3600), n_points=1000)
+        ```
+        
+        ## Links
+        
+        * [PyPI Package](https://pypi.org/project/cosmic-unified-sim/)
+        * [GitHub Repository](https://github.com/xtimon/unified-sim)
+        * [Full Documentation](https://unified-sim.readthedocs.io/)
+        EOF
+        sed -i 's/^        //' wiki_output/Home.md
 
     - name: Create Wiki Sidebar
       run: |
-        cat > wiki_output/_Sidebar.md << 'EOFSIDEBAR'
-## Navigation
-
-**[[Home]]**
-
-### Getting Started
-- [[Installation]]
-- [[Quickstart|Quick Start]]
-
-### Tutorials
-- [[tutorials-quantum_basics|Quantum Basics]]
-- [[tutorials-nbody_simulation|N-Body Simulation]]
-- [[tutorials-coherence_evolution|Coherence Evolution]]
-- [[tutorials-custom_integrators|Custom Integrators]]
-- [[tutorials-visualization_guide|Visualization]]
-- [[tutorials-multiverse_analysis|Multiverse Analysis]]
-- [[tutorials-gpu_acceleration|GPU Acceleration]]
-- [[tutorials-extending_framework|Extending]]
-- [[tutorials-performance_optimization|Performance]]
-
-### API Reference
-- [[api-quantum|Quantum]]
-- [[api-cosmic|Cosmic]]
-- [[api-coherence|Coherence]]
-- [[api-genesis|Genesis]]
-- [[api-holographic|Holographic]]
-- [[api-core|Core]]
-
-### Development
-- [[Contributing]]
-- [[Changelog]]
-EOFSIDEBAR
+        cat > wiki_output/_Sidebar.md << 'EOF'
+        ## Navigation
+        
+        **[[Home]]**
+        
+        ### Getting Started
+        * [[Installation]]
+        * [[Quickstart|Quick Start]]
+        
+        ### Tutorials
+        * [[tutorials-quantum_basics|Quantum Basics]]
+        * [[tutorials-nbody_simulation|N-Body Simulation]]
+        * [[tutorials-coherence_evolution|Coherence Evolution]]
+        * [[tutorials-custom_integrators|Custom Integrators]]
+        * [[tutorials-visualization_guide|Visualization]]
+        * [[tutorials-multiverse_analysis|Multiverse Analysis]]
+        * [[tutorials-gpu_acceleration|GPU Acceleration]]
+        * [[tutorials-extending_framework|Extending]]
+        * [[tutorials-performance_optimization|Performance]]
+        
+        ### API Reference
+        * [[api-quantum|Quantum]]
+        * [[api-cosmic|Cosmic]]
+        * [[api-coherence|Coherence]]
+        * [[api-genesis|Genesis]]
+        * [[api-holographic|Holographic]]
+        * [[api-core|Core]]
+        
+        ### Development
+        * [[Contributing]]
+        * [[Changelog]]
+        EOF
+        sed -i 's/^        //' wiki_output/_Sidebar.md
 
     - name: Create Wiki Footer
       run: |
-        cat > wiki_output/_Footer.md << 'EOFFOOTER'
----
-**Unified Cosmological Simulation** | [GitHub](https://github.com/xtimon/unified-sim) | [PyPI](https://pypi.org/project/cosmic-unified-sim/) | MIT License
-EOFFOOTER
+        echo '---' > wiki_output/_Footer.md
+        echo '**Unified Cosmological Simulation** | [GitHub](https://github.com/xtimon/unified-sim) | [PyPI](https://pypi.org/project/cosmic-unified-sim/) | MIT License' >> wiki_output/_Footer.md
 
     - name: Checkout wiki repository
       uses: actions/checkout@v4
