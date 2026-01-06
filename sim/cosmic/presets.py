@@ -132,9 +132,11 @@ class SystemPresets:
         r1 = separation * mass2 / total_mass
         r2 = separation * mass1 / total_mass
 
-        # Orbital velocities
-        v1 = np.sqrt(self.calc.G * mass2 * separation / (total_mass * r1))
-        v2 = np.sqrt(self.calc.G * mass1 * separation / (total_mass * r2))
+        # Orbital velocities for circular binary orbit
+        # From centripetal = gravitational: m*v²/r = G*m1*m2/a²
+        # v = sqrt(G * m_other² / (M_total * a))
+        v1 = np.sqrt(self.calc.G * mass2**2 / (total_mass * separation))
+        v2 = np.sqrt(self.calc.G * mass1**2 / (total_mass * separation))
 
         return [
             Body(
@@ -171,9 +173,10 @@ class SystemPresets:
         r_earth_cm = r_moon * mass_moon / total_mass
         r_moon_cm = r_moon * mass_earth / total_mass
 
-        # Orbital velocities
-        v_earth = np.sqrt(self.calc.G * mass_moon / r_moon)
-        v_moon = np.sqrt(self.calc.G * mass_earth / r_moon)
+        # Orbital velocities for circular two-body orbit
+        # v = sqrt(G * m_other² / (M_total * separation))
+        v_earth = np.sqrt(self.calc.G * mass_moon**2 / (total_mass * r_moon))
+        v_moon = np.sqrt(self.calc.G * mass_earth**2 / (total_mass * r_moon))
 
         return [
             Body(
