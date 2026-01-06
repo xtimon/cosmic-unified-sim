@@ -105,6 +105,13 @@ Contents
    contributing
    changelog
 
+Links
+-----
+
+* `PyPI Package <https://pypi.org/project/cosmic-unified-sim/>`_
+* `GitHub Repository <https://github.com/xtimon/unified-sim>`_
+* `Issue Tracker <https://github.com/xtimon/unified-sim/issues>`_
+
 Indices and tables
 ------------------
 

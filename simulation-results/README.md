@@ -236,7 +236,9 @@ sim coherence --stages 12 --alpha 0.66
 
 ## 📚 Ссылки
 
-- [Документация проекта](../docs/)
+- [Полная документация](https://cosmic-unified-sim.readthedocs.io/)
+- [PyPI пакет](https://pypi.org/project/cosmic-unified-sim/)
+- [GitHub репозиторий](https://github.com/xtimon/unified-sim)
 - [Исходный код](../sim/)
 - [Примеры Jupyter](../examples/)
 

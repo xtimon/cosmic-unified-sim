@@ -137,7 +137,7 @@ jobs:
         
         * [PyPI Package](https://pypi.org/project/cosmic-unified-sim/)
         * [GitHub Repository](https://github.com/xtimon/unified-sim)
-        * [Full Documentation](https://unified-sim.readthedocs.io/)
+        * [Full Documentation](https://cosmic-unified-sim.readthedocs.io/)
         EOF
         sed -i 's/^        //' wiki_output/Home.md
 

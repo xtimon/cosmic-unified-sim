@@ -72,7 +72,7 @@ sim = "sim.cli.main:main"
 
 [project.urls]
 Homepage = "https://github.com/xtimon/unified-sim"
-Documentation = "https://github.com/xtimon/unified-sim#readme"
+Documentation = "https://cosmic-unified-sim.readthedocs.io/"
 Repository = "https://github.com/xtimon/unified-sim.git"
 Issues = "https://github.com/xtimon/unified-sim/issues"
 Changelog = "https://github.com/xtimon/unified-sim/blob/main/CHANGELOG.md"

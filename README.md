@@ -6,6 +6,7 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Downloads](https://static.pepy.tech/badge/cosmic-unified-sim)](https://pepy.tech/project/cosmic-unified-sim)
+[![Documentation](https://readthedocs.org/projects/cosmic-unified-sim/badge/?version=latest)](https://cosmic-unified-sim.readthedocs.io/)
 
 ---
 
@@ -259,6 +260,17 @@ Optional:
 - **cupy** (CUDA acceleration)
 - **vulkpy** (Vulkan acceleration)
 - **pyopencl** (OpenCL acceleration)
+
+---
+
+## 📖 Documentation
+
+Full documentation is available at **[cosmic-unified-sim.readthedocs.io](https://cosmic-unified-sim.readthedocs.io/)**
+
+- [Installation Guide](https://cosmic-unified-sim.readthedocs.io/en/latest/installation.html)
+- [Quick Start](https://cosmic-unified-sim.readthedocs.io/en/latest/quickstart.html)
+- [Tutorials](https://cosmic-unified-sim.readthedocs.io/en/latest/tutorials/index.html)
+- [API Reference](https://cosmic-unified-sim.readthedocs.io/en/latest/api/quantum.html)
 
 ---
 
