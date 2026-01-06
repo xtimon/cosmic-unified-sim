@@ -36,9 +36,21 @@ from sim.holographic import HolographicAnalysis, UniverseFormulaReport
 from sim.constants import UNIVERSE_STAGES, CosmologicalConstants, PhysicalConstants
 from sim.visualization import SimulationVisualizer
 
-# Create output directory
+# Create output directory structure
 OUTPUT_DIR = Path("simulation-results")
 OUTPUT_DIR.mkdir(exist_ok=True)
+
+# Create subdirectories for each module
+SUBDIRS = {
+    "quantum": OUTPUT_DIR / "quantum",
+    "cosmic": OUTPUT_DIR / "cosmic",
+    "coherence": OUTPUT_DIR / "coherence",
+    "genesis": OUTPUT_DIR / "genesis",
+    "holographic": OUTPUT_DIR / "holographic",
+}
+
+for subdir in SUBDIRS.values():
+    subdir.mkdir(exist_ok=True)
 
 # Results container
 RESULTS = {
@@ -47,9 +59,19 @@ RESULTS = {
 }
 
 
-def save_figure(fig, name, dpi=150):
-    """Save figure to output directory."""
-    path = OUTPUT_DIR / f"{name}.png"
+def save_figure(fig, name, subdir=None, dpi=150):
+    """Save figure to output directory.
+    
+    Args:
+        fig: matplotlib figure
+        name: filename (without extension)
+        subdir: subdirectory name ('quantum', 'cosmic', 'coherence', 'genesis', 'holographic')
+        dpi: resolution
+    """
+    if subdir and subdir in SUBDIRS:
+        path = SUBDIRS[subdir] / f"{name}.png"
+    else:
+        path = OUTPUT_DIR / f"{name}.png"
     fig.savefig(path, dpi=dpi, bbox_inches='tight', facecolor='white', edgecolor='none')
     plt.close(fig)
     print(f"  ✓ Saved: {path}")
@@ -101,7 +123,7 @@ def run_quantum_simulations():
     ax.set_ylabel("Probability")
     ax.set_title("3-Qubit Entangled State Distribution")
     ax.grid(True, alpha=0.3, axis='y')
-    save_figure(fig, "quantum_state_distribution")
+    save_figure(fig, "quantum_state_distribution", subdir="quantum")
     
     # 3. Measurement statistics
     print("\n3. Measurement statistics (1000 measurements)...")
@@ -136,7 +158,7 @@ def run_quantum_simulations():
     ax.set_title("Entanglement Entropy vs Coupling Strength")
     ax.grid(True, alpha=0.3)
     ax.fill_between(strengths, entropies, alpha=0.3)
-    save_figure(fig, "entanglement_strength_analysis")
+    save_figure(fig, "entanglement_strength_analysis", subdir="quantum")
     
     results["entanglement_strength"] = {
         "strengths": strengths.tolist(),
@@ -169,7 +191,7 @@ def run_quantum_simulations():
     ax.grid(True, alpha=0.3)
     ax.axhline(0.5, color='gray', linestyle='--', alpha=0.5, label='50% coherence')
     ax.legend()
-    save_figure(fig, "observer_decoherence")
+    save_figure(fig, "observer_decoherence", subdir="quantum")
     
     results["observer_decoherence"] = {
         "times": times.tolist(),
@@ -208,7 +230,7 @@ def run_cosmic_simulations():
     
     # Plot trajectories
     fig = viz.plot_nbody_2d(bodies, plane='xy', title='Earth-Moon System (XY Projection)')
-    save_figure(fig, "earth_moon_trajectory")
+    save_figure(fig, "earth_moon_trajectory", subdir="cosmic")
     
     # 2. Inner Solar System (1 year)
     print("\n2. Inner Solar System simulation (365 days)...")
@@ -227,7 +249,7 @@ def run_cosmic_simulations():
     print(f"  Energy conservation: {change*100:.6f}% change")
     
     fig = viz.plot_nbody_2d(bodies, plane='xy', title='Inner Solar System (1 Year)')
-    save_figure(fig, "inner_solar_system")
+    save_figure(fig, "inner_solar_system", subdir="cosmic")
     
     # 3. Full Solar System (5 years)
     print("\n3. Full Solar System simulation (5 years)...")
@@ -246,7 +268,7 @@ def run_cosmic_simulations():
     print(f"  Energy conservation: {change*100:.6f}% change")
     
     fig = viz.plot_nbody_2d(bodies, plane='xy', title='Solar System (5 Years)')
-    save_figure(fig, "full_solar_system")
+    save_figure(fig, "full_solar_system", subdir="cosmic")
     
     # 4. Three-body problem (figure-8)
     print("\n4. Three-body problem (figure-8 orbit)...")
@@ -263,7 +285,7 @@ def run_cosmic_simulations():
     print(f"  Energy conservation: {change*100:.6f}% change")
     
     fig = viz.plot_nbody_2d(bodies, plane='xy', title='Three-Body Problem (Figure-8 Orbit)')
-    save_figure(fig, "three_body_figure8")
+    save_figure(fig, "three_body_figure8", subdir="cosmic")
     
     # 5. Binary star system
     print("\n5. Binary star system simulation...")
@@ -280,7 +302,7 @@ def run_cosmic_simulations():
     print(f"  Energy conservation: {change*100:.6f}% change")
     
     fig = viz.plot_nbody_2d(bodies, plane='xy', title='Binary Star System (10 AU separation)')
-    save_figure(fig, "binary_star_system")
+    save_figure(fig, "binary_star_system", subdir="cosmic")
     
     return results
 
@@ -333,7 +355,7 @@ def run_coherence_simulations():
     ax2.grid(True, alpha=0.3)
     
     plt.tight_layout()
-    save_figure(fig, "coherence_evolution_standard")
+    save_figure(fig, "coherence_evolution_standard", subdir="coherence")
     
     # 2. Compare different models
     print("\n2. Comparing coherence models...")
@@ -363,7 +385,7 @@ def run_coherence_simulations():
     ax.legend()
     ax.grid(True, alpha=0.3)
     plt.tight_layout()
-    save_figure(fig, "coherence_model_comparison")
+    save_figure(fig, "coherence_model_comparison", subdir="coherence")
     
     # 3. Alpha parameter study
     print("\n3. Alpha parameter sensitivity analysis...")
@@ -379,7 +401,7 @@ def run_coherence_simulations():
     ax.set_title("Coherence Evolution for Different α Values")
     ax.legend()
     ax.grid(True, alpha=0.3)
-    save_figure(fig, "coherence_alpha_sensitivity")
+    save_figure(fig, "coherence_alpha_sensitivity", subdir="coherence")
     
     results["alpha_sensitivity"] = {
         "alphas": alphas,
@@ -406,7 +428,7 @@ def run_coherence_simulations():
     ax.set_title("Universe Coherence: Past and Future Prediction")
     ax.legend()
     ax.grid(True, alpha=0.3)
-    save_figure(fig, "coherence_future_prediction")
+    save_figure(fig, "coherence_future_prediction", subdir="coherence")
     
     print(f"  Predicted stages 13-16:")
     for i in range(min(4, len(K_future))):
@@ -448,7 +470,7 @@ def run_coherence_simulations():
     ax.legend()
     ax.grid(True, alpha=0.3)
     ax.set_ylim(-1.5, 3)
-    save_figure(fig, "symmetry_breaking_potential")
+    save_figure(fig, "symmetry_breaking_potential", subdir="coherence")
     
     return results
 
@@ -488,7 +510,7 @@ def run_genesis_simulations():
     ax.set_title("Parametric Resonance: Particle Production")
     ax.legend()
     ax.grid(True, alpha=0.3)
-    save_figure(fig, "parametric_resonance")
+    save_figure(fig, "parametric_resonance", subdir="genesis")
     
     # 2. Leptogenesis
     print("\n2. Leptogenesis simulation...")
@@ -531,7 +553,7 @@ def run_genesis_simulations():
     ax.set_title("Leptogenesis: Baryon Asymmetry Generation")
     ax.legend()
     ax.grid(True, alpha=0.3)
-    save_figure(fig, "leptogenesis_asymmetry")
+    save_figure(fig, "leptogenesis_asymmetry", subdir="genesis")
     
     # 3. Full matter genesis simulation
     print("\n3. Full matter genesis simulation...")
@@ -592,7 +614,7 @@ def run_genesis_simulations():
     axes[1, 1].set_title("Final Energy Composition")
     
     plt.tight_layout()
-    save_figure(fig, "matter_genesis_evolution")
+    save_figure(fig, "matter_genesis_evolution", subdir="genesis")
     
     return results
 
@@ -640,7 +662,7 @@ def run_holographic_analysis():
     ax.grid(True, alpha=0.3, axis='y')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    save_figure(fig, "holographic_k_models")
+    save_figure(fig, "holographic_k_models", subdir="holographic")
     
     # 2. Formula comparison
     print("\n2. Comparing k formulas...")
@@ -670,7 +692,7 @@ def run_holographic_analysis():
     ax.legend()
     ax.grid(True, alpha=0.3, axis='x')
     plt.tight_layout()
-    save_figure(fig, "holographic_formula_comparison")
+    save_figure(fig, "holographic_formula_comparison", subdir="holographic")
     
     # 3. Significance test
     print("\n3. Statistical significance test (k ≈ 66α)...")
@@ -790,7 +812,7 @@ def run_holographic_analysis():
             bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
     
     plt.tight_layout()
-    save_figure(fig, "holographic_summary")
+    save_figure(fig, "holographic_summary", subdir="holographic")
     
     return results
 
@@ -912,10 +934,15 @@ def generate_analysis_report():
     report.append("5. **Holographic analysis** confirms k/α ≈ 66 relation across cosmological models")
     
     report.append("\n## 7. Generated Files\n")
-    report.append("### Plots")
-    for f in sorted(OUTPUT_DIR.glob("*.png")):
-        report.append(f"- `{f.name}`")
-    report.append("\n### Data")
+    report.append("### Plots by Category\n")
+    for category, subdir in SUBDIRS.items():
+        files = sorted(subdir.glob("*.png"))
+        if files:
+            report.append(f"**{category}/**")
+            for f in files:
+                report.append(f"- `{category}/{f.name}`")
+            report.append("")
+    report.append("### Data")
     report.append("- `simulation_results.json` - Full numerical results")
     report.append("- `analysis_report.md` - This report")
     
@@ -958,7 +985,7 @@ def main():
     
     # Summary
     elapsed = (datetime.now() - start_time).total_seconds()
-    n_plots = len(list(OUTPUT_DIR.glob("*.png")))
+    n_plots = sum(len(list(subdir.glob("*.png"))) for subdir in SUBDIRS.values())
     
     print("\n" + "="*60)
     print("✅ ALL SIMULATIONS COMPLETED")
