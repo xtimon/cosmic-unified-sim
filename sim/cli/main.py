@@ -36,11 +36,15 @@ def main():
     fmt = argparse.ArgumentDefaultsHelpFormatter
 
     # Info command
-    info_parser = subparsers.add_parser("info", help="Show library information", formatter_class=fmt)
+    info_parser = subparsers.add_parser(
+        "info", help="Show library information", formatter_class=fmt
+    )
     info_parser.add_argument("--gpu", action="store_true", help="Show GPU information")
 
     # Quantum command
-    quantum_parser = subparsers.add_parser("quantum", help="Run quantum simulation", formatter_class=fmt)
+    quantum_parser = subparsers.add_parser(
+        "quantum", help="Run quantum simulation", formatter_class=fmt
+    )
     quantum_parser.add_argument(
         "--qubits", "-n", type=int, default=3, help="Number of qubits (1-20)"
     )
@@ -48,7 +52,9 @@ def main():
     quantum_parser.add_argument("--gpu", action="store_true", help="Use GPU acceleration")
 
     # Cosmic command
-    cosmic_parser = subparsers.add_parser("cosmic", help="Run N-body simulation", formatter_class=fmt)
+    cosmic_parser = subparsers.add_parser(
+        "cosmic", help="Run N-body simulation", formatter_class=fmt
+    )
     cosmic_parser.add_argument(
         "--system",
         "-s",
@@ -72,7 +78,9 @@ def main():
     cosmic_parser.add_argument("--save", type=str, metavar="FILE", help="Save trajectory to file")
 
     # Coherence command
-    coherence_parser = subparsers.add_parser("coherence", help="Run coherence simulation", formatter_class=fmt)
+    coherence_parser = subparsers.add_parser(
+        "coherence", help="Run coherence simulation", formatter_class=fmt
+    )
     coherence_parser.add_argument(
         "--stages", "-n", type=int, default=12, help="Number of universe stages (1-100)"
     )
@@ -81,18 +89,24 @@ def main():
     )
 
     # Genesis command
-    genesis_parser = subparsers.add_parser("genesis", help="Run matter genesis simulation", formatter_class=fmt)
+    genesis_parser = subparsers.add_parser(
+        "genesis", help="Run matter genesis simulation", formatter_class=fmt
+    )
     genesis_parser.add_argument(
         "--time", "-t", type=float, default=1000, help="Total simulation time in Hubble units (> 0)"
     )
     genesis_parser.add_argument("--dt", type=float, default=1.0, help="Time step size")
 
     # Holographic command
-    holo_parser = subparsers.add_parser("holographic", help="Run holographic analysis", formatter_class=fmt)
+    holo_parser = subparsers.add_parser(
+        "holographic", help="Run holographic analysis", formatter_class=fmt
+    )
     holo_parser.add_argument("--report", "-r", action="store_true", help="Generate full report")
 
     # Config command
-    config_parser = subparsers.add_parser("config", help="Configuration management", formatter_class=fmt)
+    config_parser = subparsers.add_parser(
+        "config", help="Configuration management", formatter_class=fmt
+    )
     config_parser.add_argument(
         "--generate", "-g", type=str, metavar="FILE", help="Generate example config file"
     )
