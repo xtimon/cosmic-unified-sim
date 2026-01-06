@@ -1,232 +1,232 @@
-# Результаты симуляций Unified Cosmological Simulation
+# Unified Cosmological Simulation Results
 
-> **Дата генерации:** Январь 2026  
-> **Версия фреймворка:** 0.2.0
+> **Generation Date:** January 2026  
+> **Framework Version:** 0.2.0
 
-## 📁 Структура директории
+## 📁 Directory Structure
 
 ```
 simulation-results/
-├── quantum/           # Квантовые симуляции
-├── cosmic/            # N-body гравитационные симуляции
-├── coherence/         # Эволюция когерентности Вселенной
-├── genesis/           # Лептогенез и материогенез
-├── holographic/       # Голографический принцип
-├── simulation_results.json   # Полные численные данные
-├── analysis_report.md        # Автоматический отчёт
-└── README.md                 # Этот файл
+├── quantum/           # Quantum simulations
+├── cosmic/            # N-body gravitational simulations
+├── coherence/         # Universe coherence evolution
+├── genesis/           # Leptogenesis and matter genesis
+├── holographic/       # Holographic principle
+├── simulation_results.json   # Complete numerical data
+├── analysis_report.md        # Automatic report
+└── README.md                 # This file
 ```
 
 ---
 
-## 🔬 1. Квантовые симуляции (`quantum/`)
+## 🔬 1. Quantum Simulations (`quantum/`)
 
-### Файлы
-- `quantum_state_distribution.png` — распределение вероятностей запутанного состояния
-- `entanglement_strength_analysis.png` — зависимость энтропии от силы запутывания
-- `observer_decoherence.png` — декогеренция при наблюдении
+### Files
+- `quantum_state_distribution.png` — probability distribution of entangled state
+- `entanglement_strength_analysis.png` — entropy dependence on entanglement strength
+- `observer_decoherence.png` — decoherence during observation
 
-### Основные результаты
+### Main Results
 
-| Система | Энтропия запутанности | Ненулевых состояний |
-|---------|----------------------|---------------------|
-| 2 кубита | 1.000 | 2 |
-| 3 кубита | 1.000 | 4 |
-| 4 кубита | 1.000 | 8 |
-| 5 кубитов | 1.000 | 16 |
+| System | Entanglement Entropy | Non-zero States |
+|--------|---------------------|-----------------|
+| 2 qubits | 1.000 | 2 |
+| 3 qubits | 1.000 | 4 |
+| 4 qubits | 1.000 | 8 |
+| 5 qubits | 1.000 | 16 |
 
-### Выводы
+### Conclusions
 
-1. **Максимальная запутанность** достигается во всех конфигурациях — энтропия фон Неймана близка к 1.0
-2. **Статистика измерений** соответствует квантовой механике: 520/480 при 1000 измерениях (в пределах 1.3σ)
-3. **Декогеренция** при наблюдении происходит на временах ~10⁻⁵ сек для человеческого наблюдателя
-
----
-
-## 🌍 2. N-body симуляции (`cosmic/`)
-
-### Файлы
-- `earth_moon_trajectory.png` — орбита Луны (27.3 дня)
-- `inner_solar_system.png` — внутренняя Солнечная система (1 год)
-- `full_solar_system.png` — полная Солнечная система (5 лет)
-- `three_body_figure8.png` — фигура-8 (задача трёх тел)
-- `binary_star_system.png` — двойная звезда (10 лет)
-
-### Сохранение энергии
-
-| Система | Длительность | Изменение энергии |
-|---------|--------------|-------------------|
-| Земля-Луна | 27.3 дней | **0.000000%** |
-| Внутр. Солнечная система | 1 год | **8.4×10⁻⁷%** |
-| Полная Солнечная система | 5 лет | **1.7×10⁻⁷%** |
-| Фигура-8 | 10⁷ сек | **1.3×10⁻⁶%** |
-| Двойная звезда | 10 лет | **0.000001%** |
-
-### Выводы
-
-1. **Интегратор RK45** обеспечивает превосходное сохранение энергии (<10⁻⁶%)
-2. **Солнечная система** стабильна на масштабах лет с высокой точностью
-3. **Фигура-8** — периодическое решение задачи трёх тел успешно воспроизведено
-4. **Исправлена ошибка** в формуле орбитальной скорости для двойных звёзд (было 10¹²²%, стало 10⁻⁶%)
+1. **Maximum entanglement** is achieved in all configurations — von Neumann entropy is close to 1.0
+2. **Measurement statistics** match quantum mechanics: 520/480 at 1000 measurements (within 1.3σ)
+3. **Decoherence** during observation occurs at timescales ~10⁻⁵ sec for a human observer
 
 ---
 
-## 🌌 3. Эволюция когерентности (`coherence/`)
+## 🌍 2. N-body Simulations (`cosmic/`)
 
-### Файлы
-- `coherence_evolution_standard.png` — стандартная эволюция K(n)
-- `coherence_model_comparison.png` — сравнение моделей
-- `coherence_alpha_sensitivity.png` — чувствительность к параметру α
-- `coherence_future_prediction.png` — прогноз будущей эволюции
-- `symmetry_breaking_potential.png` — спонтанное нарушение симметрии
+### Files
+- `earth_moon_trajectory.png` — Moon's orbit (27.3 days)
+- `inner_solar_system.png` — inner Solar System (1 year)
+- `full_solar_system.png` — full Solar System (5 years)
+- `three_body_figure8.png` — figure-8 (three-body problem)
+- `binary_star_system.png` — binary star (10 years)
 
-### Сравнение моделей
+### Energy Conservation
 
-| Модель | Фактор роста K(12)/K(0) |
-|--------|------------------------|
-| Стандартная | **3.60×** |
-| Скорректированная | 1.20× |
-| Квантовая | 1.08× |
-| С тёмной энергией | 2418× |
+| System | Duration | Energy Change |
+|--------|----------|---------------|
+| Earth-Moon | 27.3 days | **0.000000%** |
+| Inner Solar System | 1 year | **8.4×10⁻⁷%** |
+| Full Solar System | 5 years | **1.7×10⁻⁷%** |
+| Figure-8 | 10⁷ sec | **1.3×10⁻⁶%** |
+| Binary Star | 10 years | **0.000001%** |
 
-### Информационный анализ
+### Conclusions
 
-- **Энтропия Шеннона:** 3.46 бит
-- **Максимальная энтропия:** 3.58 бит
-- **Эффективность:** 96.6%
-
-### Выводы
-
-1. **Стандартная модель** даёт рост когерентности в ~3.6 раза за 12 стадий
-2. **Модель с тёмной энергией** даёт нефизичный экспоненциальный рост
-3. **Чувствительность к α**: при α = 0.3→0.9 фактор роста меняется 1.84→5.49
-4. **Информационная эффективность** близка к оптимальной (96.6%)
+1. **RK45 integrator** provides excellent energy conservation (<10⁻⁶%)
+2. **Solar System** is stable on year timescales with high accuracy
+3. **Figure-8** — periodic solution of the three-body problem successfully reproduced
+4. **Bug fixed** in orbital velocity formula for binary stars (was 10¹²²%, now 10⁻⁶%)
 
 ---
 
-## ⚛️ 4. Лептогенез и материогенез (`genesis/`)
+## 🌌 3. Coherence Evolution (`coherence/`)
 
-### Файлы
-- `parametric_resonance.png` — параметрический резонанс
-- `leptogenesis_asymmetry.png` — барионная асимметрия
-- `matter_genesis_evolution.png` — эволюция ранней Вселенной
-- `leptogenesis_convergence.png` — анализ сходимости
-- `leptogenesis_detailed_scan.png` — сканирование параметров
-- `precise_leptogenesis_match.png` — точное совпадение с наблюдениями
-- И другие...
+### Files
+- `coherence_evolution_standard.png` — standard K(n) evolution
+- `coherence_model_comparison.png` — model comparison
+- `coherence_alpha_sensitivity.png` — sensitivity to parameter α
+- `coherence_future_prediction.png` — future evolution prediction
+- `symmetry_breaking_potential.png` — spontaneous symmetry breaking
 
-### Лептогенез: ключевые результаты
+### Model Comparison
 
-**Наблюдаемое значение:** η_B = 6.1×10⁻¹⁰
+| Model | Growth Factor K(12)/K(0) |
+|-------|-------------------------|
+| Standard | **3.60×** |
+| Corrected | 1.20× |
+| Quantum | 1.08× |
+| With Dark Energy | 2418× |
 
-**Оптимальные параметры для воспроизведения наблюдений:**
+### Information Analysis
 
-| Параметр | Значение |
-|----------|----------|
-| Масса тяжёлого нейтрино M | **1.43×10¹¹ GeV** |
-| CP-нарушение ε | **7.0×10⁻⁷** |
-| Связь Юкавы | 10⁻⁷ |
-| Результат η_B | 6.15×10⁻¹⁰ |
-| **Ошибка** | **0.88%** |
+- **Shannon Entropy:** 3.46 bits
+- **Maximum Entropy:** 3.58 bits
+- **Efficiency:** 96.6%
 
-### Важное открытие: сходимость
+### Conclusions
 
-Для корректных результатов необходимо интегрировать до **z = M/T ≥ 5000**:
+1. **Standard model** gives coherence growth of ~3.6 times over 12 stages
+2. **Dark energy model** gives unphysical exponential growth
+3. **Sensitivity to α**: at α = 0.3→0.9, growth factor changes 1.84→5.49
+4. **Information efficiency** is close to optimal (96.6%)
 
-| z_max | η_B | Изменение |
-|-------|-----|-----------|
+---
+
+## ⚛️ 4. Leptogenesis and Matter Genesis (`genesis/`)
+
+### Files
+- `parametric_resonance.png` — parametric resonance
+- `leptogenesis_asymmetry.png` — baryon asymmetry
+- `matter_genesis_evolution.png` — early Universe evolution
+- `leptogenesis_convergence.png` — convergence analysis
+- `leptogenesis_detailed_scan.png` — parameter scan
+- `precise_leptogenesis_match.png` — precise match with observations
+- And others...
+
+### Leptogenesis: Key Results
+
+**Observed value:** η_B = 6.1×10⁻¹⁰
+
+**Optimal parameters to reproduce observations:**
+
+| Parameter | Value |
+|-----------|-------|
+| Heavy neutrino mass M | **1.43×10¹¹ GeV** |
+| CP violation ε | **7.0×10⁻⁷** |
+| Yukawa coupling | 10⁻⁷ |
+| Result η_B | 6.15×10⁻¹⁰ |
+| **Error** | **0.88%** |
+
+### Important Discovery: Convergence
+
+For correct results, integration up to **z = M/T ≥ 5000** is necessary:
+
+| z_max | η_B | Change |
+|-------|-----|--------|
 | 100 | 7.4×10⁻¹¹ | — |
 | 500 | 1.9×10⁻⁹ | +2500% |
 | 2000 | 3.0×10⁻⁹ | +58% |
 | 5000 | 3.0×10⁻⁹ | **0%** ✓ |
 
-### Выводы
+### Conclusions
 
-1. **Лептогенез воспроизводит** наблюдаемую барионную асимметрию с точностью <1%
-2. **Оптимальная масса нейтрино:** M ~ 10¹¹ GeV (шкала GUT)
-3. **Критично**: интегрирование до z ≥ 5000 для сходимости результатов
-4. **Зависимость:** η_B ∝ ε/M (диагональ на карте параметров)
+1. **Leptogenesis reproduces** the observed baryon asymmetry with accuracy <1%
+2. **Optimal neutrino mass:** M ~ 10¹¹ GeV (GUT scale)
+3. **Critical**: integration up to z ≥ 5000 for result convergence
+4. **Dependence:** η_B ∝ ε/M (diagonal on parameter map)
 
 ---
 
-## 🔮 5. Голографический анализ (`holographic/`)
+## 🔮 5. Holographic Analysis (`holographic/`)
 
-### Файлы
-- `holographic_k_models.png` — параметр k для разных моделей
-- `holographic_formula_comparison.png` — сравнение формул
-- `holographic_summary.png` — сводка ключевых соотношений
+### Files
+- `holographic_k_models.png` — k parameter for different models
+- `holographic_formula_comparison.png` — formula comparison
+- `holographic_summary.png` — summary of key relationships
 
-### Соотношение k/α ≈ 66
+### Ratio k/α ≈ 66
 
-| Модель | k | k/α |
-|--------|---|-----|
+| Model | k | k/α |
+|-------|---|-----|
 | Planck 2018 | 0.4747 | 65.06 |
 | WMAP9 | 0.4757 | 65.19 |
 | SH0ES | 0.4747 | 65.06 |
 | DES | 0.4747 | 65.06 |
 | ACT | 0.4747 | 65.06 |
-| **Среднее** | **0.4749** | **65.08** |
-| **Теор. 66α** | 0.4816 | 66.00 |
+| **Average** | **0.4749** | **65.08** |
+| **Theor. 66α** | 0.4816 | 66.00 |
 
-### Сравнение формул для k
+### Formula Comparison for k
 
-| Формула | k | Ошибка vs наблюдений |
-|---------|---|---------------------|
-| Наблюдаемое | 0.4837 | — |
-| **Масса бозона** | **0.4831** | **0.12%** ✓ |
-| Энтропийное | 0.4816 | 0.42% |
-| Голографическое | 0.4747 | 1.85% |
-| Тёмная энергия | 0.1495 | 69% |
+| Formula | k | Error vs observations |
+|---------|---|----------------------|
+| Observed | 0.4837 | — |
+| **Boson mass** | **0.4831** | **0.12%** ✓ |
+| Entropic | 0.4816 | 0.42% |
+| Holographic | 0.4747 | 1.85% |
+| Dark energy | 0.1495 | 69% |
 
-### Статистическая значимость
+### Statistical Significance
 
 - **p-value:** 0.0233
-- **Значимо при α = 0.05:** ✅ Да
+- **Significant at α = 0.05:** ✅ Yes
 
-### Выводы
+### Conclusions
 
-1. **Соотношение k/α ≈ 66** статистически значимо (p = 0.023)
-2. **Лучшая формула** — на основе массы бозона (ошибка 0.12%)
-3. **Информационная ёмкость** Вселенной: ~10¹²³ бит
+1. **Ratio k/α ≈ 66** is statistically significant (p = 0.023)
+2. **Best formula** — based on boson mass (error 0.12%)
+3. **Information capacity** of the Universe: ~10¹²³ bits
 
 ---
 
-## 🎯 Главные научные выводы
+## 🎯 Main Scientific Conclusions
 
-### 1. Квантовая механика
-✅ Симулятор корректно воспроизводит запутанность и декогеренцию
+### 1. Quantum Mechanics
+✅ Simulator correctly reproduces entanglement and decoherence
 
-### 2. Гравитационная динамика  
-✅ N-body интегратор стабилен с сохранением энергии <10⁻⁶%
+### 2. Gravitational Dynamics  
+✅ N-body integrator is stable with energy conservation <10⁻⁶%
 
-### 3. Космологическая эволюция
-✅ Модель когерентности показывает рост ~3.6× за историю Вселенной
+### 3. Cosmological Evolution
+✅ Coherence model shows ~3.6× growth over the history of the Universe
 
-### 4. Бариогенез
-✅ **Лептогенез объясняет происхождение материи:**
+### 4. Baryogenesis
+✅ **Leptogenesis explains the origin of matter:**
 - M ~ 10¹¹ GeV, ε ~ 10⁻⁶
-- Совпадение с η_B = 6.1×10⁻¹⁰ с точностью <1%
+- Match with η_B = 6.1×10⁻¹⁰ with accuracy <1%
 
-### 5. Фундаментальные соотношения
-✅ **k/α ≈ 66** — возможная связь между постоянной тонкой структуры и космологическими параметрами
+### 5. Fundamental Relationships
+✅ **k/α ≈ 66** — possible connection between the fine structure constant and cosmological parameters
 
 ---
 
-## 🔄 Воспроизведение результатов
+## 🔄 Reproducing Results
 
 ```bash
-# Установка пакета из PyPI
+# Install package from PyPI
 pip install cosmic-unified-sim
 
-# Или для разработки
+# Or for development
 git clone https://github.com/xtimon/unified-sim.git
 cd unified-sim
 pip install -e .
 
-# Запуск всех симуляций
+# Run all simulations
 python run_all_simulations.py
 
-# Или отдельные модули через CLI
+# Or individual modules via CLI
 sim quantum --qubits 5 --entangle
 sim cosmic --system solar --days 365
 sim coherence --stages 12 --alpha 0.66
@@ -234,15 +234,14 @@ sim coherence --stages 12 --alpha 0.66
 
 ---
 
-## 📚 Ссылки
+## 📚 References
 
-- [Полная документация](https://cosmic-unified-sim.readthedocs.io/)
-- [PyPI пакет](https://pypi.org/project/cosmic-unified-sim/)
-- [GitHub репозиторий](https://github.com/xtimon/unified-sim)
-- [Исходный код](../sim/)
-- [Примеры Jupyter](../examples/)
+- [Full Documentation](https://cosmic-unified-sim.readthedocs.io/)
+- [PyPI Package](https://pypi.org/project/cosmic-unified-sim/)
+- [GitHub Repository](https://github.com/xtimon/unified-sim)
+- [Source Code](../sim/)
+- [Jupyter Examples](../examples/)
 
 ---
 
-*Сгенерировано фреймворком Unified Cosmological Simulation v0.2.0*
-
+*Generated by Unified Cosmological Simulation Framework v0.2.0*
