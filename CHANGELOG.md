@@ -5,6 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-01-06
+
+### Added
+
+#### Distribution
+- **PyPI Package**: Published as `cosmic-unified-sim` on [PyPI](https://pypi.org/project/cosmic-unified-sim/)
+- **Read the Docs**: Full documentation at [cosmic-unified-sim.readthedocs.io](https://cosmic-unified-sim.readthedocs.io/)
+
+#### Documentation
+- **PyPI Badge**: Version and download badges in README
+- **Read the Docs Badge**: Documentation status badge
+- **Documentation Section**: Added dedicated section in README with links to guides
+
+#### CLI
+- **Default Values in Help**: All CLI commands now show default values using `ArgumentDefaultsHelpFormatter`
+- **Improved Descriptions**: More informative argument descriptions
+
+#### Simulation Results
+- **Organized Output Structure**: Results now saved to categorized subdirectories (`quantum/`, `cosmic/`, `coherence/`, `genesis/`, `holographic/`)
+- **Results README**: Added comprehensive summary of simulation results
+
+### Fixed
+
+#### N-Body Physics
+- **Binary Star System**: Fixed critical orbital velocity calculation error that caused catastrophic energy loss (~10¹²²%)
+  - Corrected formula: `v = sqrt(G * m₂² / (M_total * separation))`
+  - Energy conservation now at 0.000001% level
+- **Earth-Moon System**: Fixed orbital velocity formula for consistency with binary star fix
+
+#### CI/CD
+- **Wiki Workflow**: Fixed YAML syntax errors in heredoc blocks by using indented content with sed cleanup
+
+### Changed
+- **Installation Instructions**: Prioritized PyPI installation (`pip install cosmic-unified-sim`) over source installation
+- **Project URLs**: Added PyPI link, updated Documentation URL to Read the Docs
+
+---
+
 ## [0.1.0] - 2025-01-05
 
 ### Added
@@ -54,7 +92,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned
-- Additional integrators
-- More preset systems
-- Extended documentation
+- Additional symplectic integrators (8th order)
+- More celestial system presets (globular clusters, exoplanet systems)
+- GPU-accelerated N-body simulation
+- Interactive visualization dashboard
 
