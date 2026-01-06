@@ -215,7 +215,12 @@ simulation-results/
 ## 🔄 Воспроизведение результатов
 
 ```bash
-# Установка зависимостей
+# Установка пакета из PyPI
+pip install cosmic-unified-sim
+
+# Или для разработки
+git clone https://github.com/xtimon/unified-sim.git
+cd unified-sim
 pip install -e .
 
 # Запуск всех симуляций
@@ -224,7 +229,7 @@ python run_all_simulations.py
 # Или отдельные модули через CLI
 sim quantum --qubits 5 --entangle
 sim cosmic --system solar --days 365
-sim coherence --model standard --stages 12
+sim coherence --stages 12 --alpha 0.66
 ```
 
 ---

@@ -2,8 +2,10 @@
 
 **A comprehensive Python library combining quantum mechanics, N-body dynamics, coherence evolution, matter genesis, and holographic analysis.**
 
+[![PyPI version](https://badge.fury.io/py/cosmic-unified-sim.svg)](https://pypi.org/project/cosmic-unified-sim/)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Downloads](https://static.pepy.tech/badge/cosmic-unified-sim)](https://pepy.tech/project/cosmic-unified-sim)
 
 ---
 
@@ -22,29 +24,35 @@
 
 ## 📦 Installation
 
+### From PyPI (Recommended)
+
 ```bash
-# Clone the repository
-git clone https://github.com/xtimon/unified-sim.git
-cd unified-sim
+# Basic installation
+pip install cosmic-unified-sim
 
-# Install in development mode
-pip install -e .
-
-# Or install with all dependencies
-pip install -e ".[all]"
+# With all optional dependencies
+pip install cosmic-unified-sim[all]
 ```
 
 ### GPU Acceleration (Optional)
 
 ```bash
 # NVIDIA CUDA
-pip install -e ".[gpu-cuda]"
+pip install cosmic-unified-sim[gpu-cuda]
 
 # AMD/NVIDIA/Intel (Vulkan)
-pip install -e ".[gpu-vulkan]"
+pip install cosmic-unified-sim[gpu-vulkan]
 
 # AMD/NVIDIA/Intel (OpenCL)
-pip install -e ".[gpu-opencl]"
+pip install cosmic-unified-sim[gpu-opencl]
+```
+
+### From Source (Development)
+
+```bash
+git clone https://github.com/xtimon/unified-sim.git
+cd unified-sim
+pip install -e ".[dev]"
 ```
 
 ---

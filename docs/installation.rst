@@ -13,40 +13,20 @@ Requirements
 Basic Installation
 ------------------
 
-Install from PyPI:
+Install from PyPI (recommended):
 
 .. code-block:: bash
 
    pip install cosmic-unified-sim
 
-Or install from source:
-
-.. code-block:: bash
-
-   git clone https://github.com/xtimon/unified-sim.git
-   cd unified-sim
-   pip install -e .
-
 Installation Options
 --------------------
 
-With development tools:
+With all optional dependencies:
 
 .. code-block:: bash
 
-   pip install -e ".[dev]"
-
-With documentation tools:
-
-.. code-block:: bash
-
-   pip install -e ".[docs]"
-
-With all extras:
-
-.. code-block:: bash
-
-   pip install -e ".[all]"
+   pip install cosmic-unified-sim[all]
 
 GPU Acceleration
 ----------------
@@ -56,7 +36,7 @@ NVIDIA CUDA (via CuPy)
 
 .. code-block:: bash
 
-   pip install -e ".[gpu-cuda]"
+   pip install cosmic-unified-sim[gpu-cuda]
 
 Requires CUDA toolkit installed on your system.
 
@@ -65,14 +45,31 @@ AMD/NVIDIA/Intel (via OpenCL)
 
 .. code-block:: bash
 
-   pip install -e ".[gpu-opencl]"
+   pip install cosmic-unified-sim[gpu-opencl]
 
 Vulkan
 ^^^^^^
 
 .. code-block:: bash
 
-   pip install -e ".[gpu-vulkan]"
+   pip install cosmic-unified-sim[gpu-vulkan]
+
+Development Installation
+------------------------
+
+For development, install from source:
+
+.. code-block:: bash
+
+   git clone https://github.com/xtimon/unified-sim.git
+   cd unified-sim
+   pip install -e ".[dev]"
+
+With documentation tools:
+
+.. code-block:: bash
+
+   pip install -e ".[docs]"
 
 Docker
 ------

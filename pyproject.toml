@@ -76,6 +76,7 @@ Documentation = "https://github.com/xtimon/unified-sim#readme"
 Repository = "https://github.com/xtimon/unified-sim.git"
 Issues = "https://github.com/xtimon/unified-sim/issues"
 Changelog = "https://github.com/xtimon/unified-sim/blob/main/CHANGELOG.md"
+PyPI = "https://pypi.org/project/cosmic-unified-sim/"
 
 [tool.setuptools.packages.find]
 where = ["."]

@@ -1,6 +1,9 @@
 Unified Cosmological Simulation
 ================================
 
+.. image:: https://badge.fury.io/py/cosmic-unified-sim.svg
+   :target: https://pypi.org/project/cosmic-unified-sim/
+
 .. image:: https://img.shields.io/badge/python-3.9+-blue.svg
    :target: https://www.python.org/downloads/
 

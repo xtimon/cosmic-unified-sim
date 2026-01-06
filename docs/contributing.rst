@@ -18,8 +18,8 @@ Development Setup
 
    .. code-block:: bash
 
-      git clone https://github.com/YOUR_USERNAME/cosmic-unified-sim.git
-      cd cosmic-unified-sim
+      git clone https://github.com/YOUR_USERNAME/unified-sim.git
+      cd unified-sim
 
 2. Create a virtual environment:
 
@@ -357,8 +357,8 @@ CI/CD automatically publishes to PyPI on tagged releases.
 Getting Help
 ------------
 
-- **Issues**: `GitHub Issues <https://github.com/xtimon/cosmic-unified-sim/issues>`_
-- **Discussions**: `GitHub Discussions <https://github.com/xtimon/cosmic-unified-sim/discussions>`_
+- **Issues**: `GitHub Issues <https://github.com/xtimon/unified-sim/issues>`_
+- **Discussions**: `GitHub Discussions <https://github.com/xtimon/unified-sim/discussions>`_
 - **Email**: tisanov@yahoo.com
 
 Thank you for contributing! 🚀
