@@ -17,6 +17,7 @@ def main():
         prog="sim",
         description="Unified Cosmological Simulation Framework",
         epilog="For detailed help, use: sim <command> --help",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
     parser.add_argument("--version", "-v", action="store_true", help="Show version and exit")
@@ -31,12 +32,15 @@ def main():
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
+    # Helper for consistent formatter
+    fmt = argparse.ArgumentDefaultsHelpFormatter
+
     # Info command
-    info_parser = subparsers.add_parser("info", help="Show library information")
+    info_parser = subparsers.add_parser("info", help="Show library information", formatter_class=fmt)
     info_parser.add_argument("--gpu", action="store_true", help="Show GPU information")
 
     # Quantum command
-    quantum_parser = subparsers.add_parser("quantum", help="Run quantum simulation")
+    quantum_parser = subparsers.add_parser("quantum", help="Run quantum simulation", formatter_class=fmt)
     quantum_parser.add_argument(
         "--qubits", "-n", type=int, default=3, help="Number of qubits (1-20)"
     )
@@ -44,15 +48,17 @@ def main():
     quantum_parser.add_argument("--gpu", action="store_true", help="Use GPU acceleration")
 
     # Cosmic command
-    cosmic_parser = subparsers.add_parser("cosmic", help="Run N-body simulation")
+    cosmic_parser = subparsers.add_parser("cosmic", help="Run N-body simulation", formatter_class=fmt)
     cosmic_parser.add_argument(
         "--system",
         "-s",
         choices=["solar", "binary", "earth-moon", "three-body"],
         default="earth-moon",
-        help="Preset system",
+        help="Preset system to simulate",
     )
-    cosmic_parser.add_argument("--days", "-d", type=float, default=30, help="Simulation days (> 0)")
+    cosmic_parser.add_argument(
+        "--days", "-d", type=float, default=30, help="Simulation duration in days (> 0)"
+    )
     cosmic_parser.add_argument(
         "--points", "-p", type=int, default=1000, help="Number of output points"
     )
@@ -61,32 +67,32 @@ def main():
         "-i",
         choices=["rk45", "verlet", "leapfrog", "yoshida4"],
         default="rk45",
-        help="Integration method",
+        help="Numerical integration method",
     )
     cosmic_parser.add_argument("--save", type=str, metavar="FILE", help="Save trajectory to file")
 
     # Coherence command
-    coherence_parser = subparsers.add_parser("coherence", help="Run coherence simulation")
+    coherence_parser = subparsers.add_parser("coherence", help="Run coherence simulation", formatter_class=fmt)
     coherence_parser.add_argument(
-        "--stages", "-n", type=int, default=12, help="Number of stages (1-100)"
+        "--stages", "-n", type=int, default=12, help="Number of universe stages (1-100)"
     )
     coherence_parser.add_argument(
-        "--alpha", "-a", type=float, default=0.66, help="Alpha parameter (0-1)"
+        "--alpha", "-a", type=float, default=0.66, help="Alpha coupling parameter (0-1)"
     )
 
     # Genesis command
-    genesis_parser = subparsers.add_parser("genesis", help="Run matter genesis simulation")
+    genesis_parser = subparsers.add_parser("genesis", help="Run matter genesis simulation", formatter_class=fmt)
     genesis_parser.add_argument(
-        "--time", "-t", type=float, default=1000, help="Simulation time (> 0)"
+        "--time", "-t", type=float, default=1000, help="Total simulation time in Hubble units (> 0)"
     )
-    genesis_parser.add_argument("--dt", type=float, default=1.0, help="Time step")
+    genesis_parser.add_argument("--dt", type=float, default=1.0, help="Time step size")
 
     # Holographic command
-    holo_parser = subparsers.add_parser("holographic", help="Run holographic analysis")
+    holo_parser = subparsers.add_parser("holographic", help="Run holographic analysis", formatter_class=fmt)
     holo_parser.add_argument("--report", "-r", action="store_true", help="Generate full report")
 
     # Config command
-    config_parser = subparsers.add_parser("config", help="Configuration management")
+    config_parser = subparsers.add_parser("config", help="Configuration management", formatter_class=fmt)
     config_parser.add_argument(
         "--generate", "-g", type=str, metavar="FILE", help="Generate example config file"
     )
